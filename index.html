@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>ETR — Everyone's Touch Rugby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F5F1E7;
+    --ivory-deep:#EDE6D6;
+    --black:#15120D;
+    --orange:#FF5A1F;
+    --orange-deep:#D8430C;
+    --white:#FFFFFF;
+    --line:#DDD3BE;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--ivory);
+    color:var(--black);
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px;
+    mix-blend-mode:normal;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    color:var(--white);
+    filter:drop-shadow(0 1px 4px rgba(0,0,0,.35));
+  }
+  .brand img{
+    width:42px; height:42px; border-radius:50%;
+    object-fit:cover; border:2px solid rgba(255,255,255,.85);
+  }
+  .brand span{
+    font-family:'Anton', sans-serif;
+    font-size:20px;
+    letter-spacing:0.06em;
+  }
+  .menu-btn{
+    width:44px; height:44px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:5px;
+    background:rgba(21,18,13,.28);
+    backdrop-filter:blur(6px);
+    border-radius:50%;
+    z-index:210;
+  }
+  .menu-btn span{
+    width:18px; height:2px; background:var(--white); border-radius:2px;
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .menu-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-btn.is-open span:nth-child(2){opacity:0;}
+  .menu-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    height:100svh;
+    min-height:560px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    object-position:center 30%;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(0deg, rgba(21,17,10,.88) 0%, rgba(216,67,12,.55) 42%, rgba(255,90,31,.28) 68%, rgba(255,90,31,.12) 100%);
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    padding:0 24px 56px;
+    color:var(--white);
+    width:100%;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+    font-weight:700;
+    background:var(--orange);
+    border-radius:6px;
+    padding:6px 12px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(40px, 11vw, 84px);
+    line-height:0.96;
+    margin-bottom:16px;
+  }
+  .hero p{
+    font-size:16px;
+    max-width:440px;
+    line-height:1.55;
+    opacity:.92;
+    margin-bottom:26px;
+  }
+  .hero-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:15px 26px;
+    border-radius:10px;
+    font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-solid{background:var(--orange); color:var(--white);}
+  .btn-solid:hover{background:var(--orange-deep);}
+  .btn-outline{border:1.5px solid rgba(255,255,255,.7); color:var(--white);}
+  .btn-outline:hover{background:rgba(255,255,255,.12);}
+  .btn-dark{background:var(--black); color:var(--white);}
+  .btn-dark:hover{background:#000;}
+  .btn-light{background:var(--white); color:var(--black);}
+  .btn-light:hover{background:#EDE6D6;}
+
+  /* ---------- Sections ---------- */
+  section{padding:88px 24px; max-width:900px; margin:0 auto;}
+  .about{padding-bottom:56px;}
+  .join{padding-top:0;}
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--orange-deep);
+    margin-bottom:14px;
+  }
+  .about{background:var(--ivory); color:var(--black);}
+  .about h2{font-size:clamp(28px,6vw,42px); line-height:1.15; margin-bottom:22px; color:var(--black);}
+  .about p{font-size:16px; line-height:1.75; color:#3a352c; max-width:640px;}
+  .about-fact{
+    margin:40px -24px 0;
+    padding:64px 32px;
+    min-height:220px;
+    display:flex; gap:36px; flex-wrap:wrap; align-items:center;
+    background:
+      linear-gradient(120deg, rgba(216,67,12,.72) 0%, rgba(255,90,31,.55) 100%),
+      url("assets/img/about-fact.jpg") center/cover no-repeat;
+  }
+  .about-fact div{min-width:120px;}
+  .about-fact strong{
+    display:block; font-family:'Anton',sans-serif; font-size:28px; color:var(--white);
+  }
+  .about-fact span{font-size:13px; color:rgba(255,255,255,.85);}
+
+  /* Join teaser cards */
+  .join{background:var(--ivory); color:var(--black);}
+  .join .eyebrow{color:var(--orange-deep);}
+  .join h2{font-size:clamp(28px,6vw,42px); margin-bottom:36px; color:var(--black);}
+  .cards{display:grid; grid-template-columns:1fr; gap:18px;}
+  @media(min-width:680px){.cards{grid-template-columns:1fr 1fr;}}
+  .card{
+    background:var(--white);
+    border:1px solid var(--orange);
+    border-radius:16px;
+    overflow:hidden;
+    padding:24px;
+    display:flex; flex-direction:row; gap:18px; align-items:stretch; height:100%;
+  }
+  .card-text{display:flex; flex-direction:column; flex:1 1 auto; min-width:0;}
+  .card-photo{
+    flex:0 0 34%;
+    border-radius:12px;
+    overflow:hidden;
+    min-height:120px;
+  }
+  .card-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  @media(max-width:520px){
+    .card{flex-direction:column;}
+    .card-photo{flex:0 0 140px; width:100%;}
+  }
+  .card .tag{
+    align-self:flex-start;
+    font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--white); background:var(--orange); border-radius:20px; padding:4px 12px; margin-bottom:18px;
+  }
+  .card h3{font-size:22px; margin-bottom:10px; color:var(--black);}
+  .card p{font-size:14px; line-height:1.7; color:#5c5648; flex-grow:1;}
+  .card .meta{margin-top:18px; font-size:13px; color:var(--orange-deep); font-weight:600;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--orange);
+    color:var(--white);
+    padding:0 24px 40px;
+  }
+  .footer-hero{
+    position:relative;
+    margin:0 -24px 40px;
+    padding:72px 24px 44px;
+    background:
+      linear-gradient(180deg, rgba(21,17,10,.25) 0%, rgba(216,67,12,.55) 55%, rgba(255,90,31,.5) 100%),
+      url("assets/img/footer-hero.jpg") center 30%/cover no-repeat;
+  }
+  .footer-hero > *{position:relative; z-index:1;}
+  .footer-inner{max-width:900px; margin:0 auto;}
+  footer h2{font-size:clamp(26px,6vw,40px); line-height:1.2; margin-bottom:28px;}
+  .footer-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:56px;}
+  .footer-grid{
+    display:grid; grid-template-columns:1fr; gap:32px;
+    border-top:1px solid rgba(255,255,255,.35);
+    padding-top:32px;
+    font-size:14px;
+  }
+  @media(min-width:680px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
+  .footer-grid h4{
+    font-family:'Inter'; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:700; margin-bottom:12px; opacity:.85;
+  }
+  .footer-grid a, .footer-grid p{display:block; margin-bottom:8px; opacity:.95;}
+  .footer-bottom{
+    margin-top:48px; padding-top:20px; border-top:1px solid rgba(255,255,255,.35);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:12px; opacity:.8;
+  }
+  .footer-bottom button{opacity:1; color:var(--white); text-decoration:underline;}
+
+  /* ---------- Menu Overlay ---------- */
+  .menu-overlay{
+    position:fixed; inset:0; z-index:150;
+    background:var(--black);
+    color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden; transform:translateY(-12px);
+    transition:opacity .35s ease, transform .35s ease, visibility .35s;
+  }
+  .menu-overlay.is-open{opacity:1; visibility:visible; transform:translateY(0);}
+  .menu-list{display:flex; flex-direction:column; gap:6px; text-align:center;}
+  .menu-list button{
+    font-family:'Anton', sans-serif;
+    font-size:clamp(32px,9vw,56px);
+    text-transform:uppercase;
+    color:var(--white);
+    padding:10px 20px;
+    position:relative;
+    transition:color .2s ease;
+  }
+  .menu-list button::after{
+    content:""; position:absolute; left:50%; bottom:2px; height:4px; width:0%;
+    background:var(--orange); transform:translateX(-50%); transition:width .25s ease;
+  }
+  .menu-list button:hover{color:var(--orange);}
+  .menu-list button:hover::after{width:60%;}
+  .menu-social{
+    position:absolute; bottom:32px; left:0; right:0;
+    text-align:center; font-size:13px; letter-spacing:.08em; color:#a89f8d;
+  }
+  .menu-social a{color:var(--orange); font-weight:600;}
+
+  /* ---------- Sub-page Overlay ---------- */
+  .subpage{
+    position:fixed; inset:0; z-index:180;
+    background:var(--ivory);
+    overflow-y:auto;
+    opacity:0; visibility:hidden;
+    transition:opacity .3s ease, visibility .3s;
+  }
+  .subpage.is-open{opacity:1; visibility:visible;}
+  .subpage-inner{max-width:760px; margin:0 auto; padding:100px 24px 100px;}
+  .subpage-close{
+    position:fixed; top:18px; right:22px; z-index:190;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--black); color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px;
+  }
+  .subpage .eyebrow{color:var(--orange-deep);}
+  .subpage h2{font-size:clamp(30px,7vw,48px); margin-bottom:24px; line-height:1.1;}
+  .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Inter'; font-weight:700;}
+  .subpage p, .subpage li{font-size:15px; line-height:1.8; color:#3a352c;}
+  .subpage ul{padding-left:18px; margin-bottom:6px;}
+
+  .timeline{margin-top:20px;}
+  .t-item{
+    display:flex; gap:18px; padding:20px 0;
+    border-top:1px solid var(--line);
+  }
+  .t-item:last-child{border-bottom:1px solid var(--line);}
+  .t-num{
+    font-family:'Anton'; font-size:28px; color:var(--orange); min-width:64px;
+  }
+  .t-body h4{font-size:16px; margin-bottom:4px;}
+  .t-body p{font-size:14px; color:#5c5648;}
+
+  .value-grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:22px;}
+  @media(min-width:600px){.value-grid{grid-template-columns:1fr 1fr 1fr;}}
+  .value-box{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px;}
+  .value-box .icon{font-size:22px; margin-bottom:8px;}
+  .value-box h4{font-size:15px; margin-bottom:6px;}
+  .value-box p{font-size:13px; color:#5c5648; line-height:1.6;}
+
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:24px;
+  }
+  @media(min-width:600px){.gallery-grid{grid-template-columns:repeat(3,1fr);}}
+  .gallery-grid div{
+    aspect-ratio:1; background:var(--ivory-deep); overflow:hidden; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .gallery-grid img{width:100%; height:100%; object-fit:cover;}
+  .gallery-placeholder{font-size:12px; color:#9c927d; text-align:center; padding:10px;}
+
+  .legal-toggle{
+    margin-top:40px; padding:20px 20px 4px; border:1px solid var(--line); border-radius:12px;
+  }
+  .legal-toggle summary{cursor:pointer; font-weight:700; font-size:14px; color:var(--orange-deep);}
+  .legal-toggle div{margin-top:14px; font-size:13px; line-height:1.8; color:#5c5648;}
+
+  ::selection{background:var(--orange); color:var(--white);}
+</style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <a href="#hero" class="brand">
+      <img src="assets/img/logo.png" alt="ETR 로고">
+      <span>ETR</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero" style="max-width:none; padding:0; margin:0;">
+    <img src="assets/img/hero.jpg" alt="ETR 팀 단체 사진, 서울시장기 터치럭비 대회 우승">
+    <div class="hero-content">
+      <h1>Everyone's<br>Touch Rugby</h1>
+      <div class="hero-actions">
+        <a href="#join-teaser" class="btn btn-solid">참가 안내 보기</a>
+        <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-outline">인스타그램</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <p class="eyebrow">About ETR</p>
+    <h2>하나의 커뮤니티,<br>유연한 팀 구성.</h2>
+    <p>ETR(Everyone's Touch Rugby)은 국적·성별·연령·운동 경험과 무관하게 누구나 참여할 수 있는 터치럭비 활동을 통해 건강한 스포츠 문화를 확산하는 서울 기반 커뮤니티입니다. 평소에는 하나의 커뮤니티로, 대회 때는 목적에 따라 유연하게 팀을 구성합니다.</p>
+    <div class="about-fact">
+      <div><strong>토 9–12</strong><span>정기 훈련</span></div>
+      <div><strong>한강</strong><span>잠원트랙구장</span></div>
+    </div>
+  </section>
+
+  <!-- ============ JOIN TEASER ============ -->
+  <section class="join" id="join-teaser" style="max-width:none;">
+    <div style="max-width:900px; margin:0 auto;">
+      <p class="eyebrow">참가 안내</p>
+      <h2>처음이라도<br>괜찮습니다.</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-text">
+            <span class="tag">Welcome Day</span>
+            <h3>처음 온 사람이 ETR을 경험하는 날</h3>
+            <p>특정 팀의 훈련일이 아닌, ETR 전체가 신규자를 맞이하는 커뮤니티 데이입니다. 기본 룰 안내와 미니게임으로 부담 없이 즐기고, 훈련 후엔 함께 점심도 먹어요.</p>
+            <span class="meta">6월–11월 · 매월 마지막 주 토요일</span>
+          </div>
+          <div class="card-photo"><img src="assets/img/welcome-day.jpg" alt="Welcome Day 훈련 사진"></div>
+        </div>
+        <div class="card">
+          <div class="card-text">
+            <span class="tag">Beginner Class</span>
+            <h3>터치럭비 기본기를 배우는 3개월 과정</h3>
+            <p>패스, 터치, 롤볼, 수비 등 핵심 기술과 기본 룰을 체계적으로 배우고, 5월 서울 터치 토너먼트 출전까지 연결됩니다.</p>
+            <span class="meta">3월–5월 · 정규 입문 과정</span>
+          </div>
+          <div class="card-photo"><img src="assets/img/beginner-class.jpg" alt="Beginner Class 경기 사진"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="get-in-touch">
+    <div class="footer-inner">
+      <div class="footer-hero">
+        <h2>함께 뛸 준비,<br>되셨나요?</h2>
+        <div class="footer-actions">
+          <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM으로 문의</a>
+          <a href="https://linktr.ee/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-light">Linktree 바로가기</a>
+        </div>
+      </div>
+      <div class="footer-grid">
+        <div>
+          <h4>Menu</h4>
+          <a href="javascript:void(0)" data-open="about">About</a>
+          <a href="javascript:void(0)" data-open="join">Join</a>
+          <a href="javascript:void(0)" data-open="plan">연간 운영 계획</a>
+          <a href="javascript:void(0)" data-open="gallery">Gallery</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>everyonestouch@gmail.com</p>
+          <p>@everyones_touchrugby</p>
+          <p>한강공원 잠원트랙구장</p>
+        </div>
+        <div>
+          <h4>Community</h4>
+          <p>Est. 2017</p>
+          <p>서울시럭비협회 등록팀</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2027 ETR · Everyone's Touch Rugby</span>
+        <button data-open="legal">회칙 및 개인정보처리방침</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ MENU OVERLAY ============ -->
+  <div class="menu-overlay" id="menuOverlay">
+    <nav class="menu-list">
+      <button data-open="about">About</button>
+      <button data-open="join">Join</button>
+      <button data-open="plan">연간 운영 계획</button>
+      <button data-open="gallery">Gallery</button>
+    </nav>
+    <div class="menu-social">@everyones_touchrugby · <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener">Instagram</a></div>
+  </div>
+
+  <!-- ============ SUBPAGE: ABOUT ============ -->
+  <div class="subpage" id="page-about">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">One Community, Multiple Pathways</p>
+      <h2>ETR은 하나의<br>커뮤니티입니다.</h2>
+      <p>ETR은 터치럭비 보급과 성장을 위한 커뮤니티 플랫폼입니다. Welcome Day, Beginner Class, Regular Training은 각각 독립된 조직이 아니라, 하나의 ETR Community 안에서 함께 활동합니다. 평소에는 하나의 커뮤니티로, 대회 때는 목적에 따라 유연하게 팀을 구성합니다.</p>
+
+      <h3>커뮤니티가 커질수록, 기준이 필요합니다</h3>
+      <div class="value-grid">
+        <div class="value-box">
+          <div class="icon">🌱</div>
+          <h4>초심자</h4>
+          <p>안전하고 친절한 입문 경험이 필요합니다. 부담 없이 시작할 수 있는 환경이 핵심입니다.</p>
+        </div>
+        <div class="value-box">
+          <div class="icon">🏃</div>
+          <h4>기존 멤버</h4>
+          <p>꾸준히 훈련할 수 있는 안정적인 환경이 필요합니다. 지속적인 성장이 가능해야 합니다.</p>
+        </div>
+        <div class="value-box">
+          <div class="icon">🏆</div>
+          <h4>경쟁 지향 멤버</h4>
+          <p>더 높은 수준의 경쟁과 전술 훈련 기회가 필요합니다. 실력을 발휘할 무대가 있어야 합니다.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px; font-weight:600;">핵심 원칙: 그룹을 나누는 것은 커뮤니티를 나누는 것이 아닙니다. 하나의 커뮤니티를 유지하되, 상황에 따라 훈련 방식과 팀 구성을 유연하게 운영합니다.</p>
+
+      <h3>대회 팀 구성 — ETR Team / MAD Team</h3>
+      <p>대회 참가 시 목적과 수준에 따라 두 갈래로 팀을 구성합니다. 평소에는 하나의 ETR Community, 대회 때만 목적에 따라 나뉩니다.</p>
+      <div class="value-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="value-box">
+          <h4>🟢 ETR Team</h4>
+          <p>커뮤니티 기반의 참여와 성장, 대회 경험을 중심으로 구성됩니다. 함께 즐기고 배우는 것이 핵심 가치입니다.</p>
+        </div>
+        <div class="value-box">
+          <h4>🔴 MAD Team</h4>
+          <p>경쟁 지향과 높은 수준의 경기력을 목표로 구성됩니다. 전술 훈련과 성과 중심의 팀입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: JOIN ============ -->
+  <div class="subpage" id="page-join">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Join ETR</p>
+      <h2>참가 경로 안내</h2>
+      <p>ETR에 합류하는 방법은 세 가지입니다. 어떤 경로로 들어오든, 모든 길은 하나의 ETR Community로 이어집니다.</p>
+
+      <h3>1. Welcome Day</h3>
+      <p>신규자가 ETR을 처음 경험하는 날입니다. 특정 팀의 훈련일이 아닌, ETR 전체가 신규자를 맞이하는 커뮤니티 데이예요. 멤버들이 지인을 자유롭게 초대할 수 있고, 기본 룰 안내와 미니게임으로 부담 없이 즐길 수 있습니다. 6월–11월, 매월 마지막 주 토요일에 진행됩니다.</p>
+
+      <h3>2. Beginner Class</h3>
+      <p>터치럭비 보급과 신규 멤버 육성을 위한 3개월 정규 과정입니다 (3월–5월). 패스·터치·롤볼·수비 등 기본기 교육 → 게임 적응 → 5월 대회 출전 및 커뮤니티 정착의 흐름으로 진행됩니다. 클래스 비용 납부로 연회비를 갈음하며, 별도 절차 없이 정회원으로 등록됩니다.</p>
+
+      <h3>3. Workwalk / 워크인</h3>
+      <p>정기훈련에 직접 참여하는 방식입니다. 웰컴데이와 동일한 절차로 정회원 신청과 함께 월회비 납부를 통해 정회원으로 등록됩니다.</p>
+
+      <h3>회비 안내</h3>
+      <p>회비는 연회비(1차 ~12월 31일 / 2차 ~익년 2월 말일)와 월회비(선불, 매월 첫째 주 토요일까지)로 구분됩니다. 구체적인 금액은 정회원 가입 시 별도 안내드려요. 연회비 납부 후 2차 납부 마감일 이전 탈퇴 시 100% 환불됩니다.</p>
+
+      <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-solid" style="margin-top:20px;">인스타그램 DM으로 참가 문의하기</a>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: 연간 운영 계획 ============ -->
+  <div class="subpage" id="page-plan">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Annual Schedule</p>
+      <h2>연간 운영 계획</h2>
+      <p>ETR은 매년 동일한 운영 흐름을 반복하며 커뮤니티를 안정적으로 확장합니다. 반복 가능한 구조가 있어야 커뮤니티가 커져도 운영이 흔들리지 않습니다.</p>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-num">01</div>
+          <div class="t-body"><h4>1월 – 2월</h4><p>시즌 준비 · 모집 · 운영 정비</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-num">02</div>
+          <div class="t-body"><h4>3월 – 5월</h4><p>Beginner Class 운영</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-num">03</div>
+          <div class="t-body"><h4>5월</h4><p>Seoul Touch Tournament</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-num">04</div>
+          <div class="t-body"><h4>6월 – 11월</h4><p>Welcome Day + Regular Training</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-num">05</div>
+          <div class="t-body"><h4>11월</h4><p>Seoul Touch Tournament</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-num">06</div>
+          <div class="t-body"><h4>12월 – 2월</h4><p>Off-season · 리뷰 · 다음 시즌 준비</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: GALLERY ============ -->
+  <div class="subpage" id="page-gallery">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Gallery</p>
+      <h2>필드 위의 순간들</h2>
+      <p>정기훈련, 웰컴데이, 대회 현장의 사진들을 모았습니다. (실제 서비스 시 고화질 사진으로 교체해 주세요 — 아래 gallery-grid 안의 img 태그 src만 바꾸면 됩니다.)</p>
+      <div class="gallery-grid">
+        <div><img src="assets/img/hero.jpg" alt="ETR 대회 사진"></div>
+        <div class="gallery-placeholder">사진<br>추가 예정</div>
+        <div class="gallery-placeholder">사진<br>추가 예정</div>
+        <div class="gallery-placeholder">사진<br>추가 예정</div>
+        <div class="gallery-placeholder">사진<br>추가 예정</div>
+        <div class="gallery-placeholder">사진<br>추가 예정</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: LEGAL (회칙/개인정보처리방침) ============ -->
+  <div class="subpage" id="page-legal">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Legal</p>
+      <h2>회칙 및<br>개인정보처리방침</h2>
+
+      <details class="legal-toggle" open>
+        <summary>ETR 회칙 펼쳐보기</summary>
+        <div>
+          <p><strong>제1조 (명칭)</strong> 본 커뮤니티는 "모두의 터치럭비"(영문명: Everyone's Touch Rugby, 이하 "ETR")라 한다.</p>
+          <p><strong>제2조 (목적)</strong> ETR은 국적, 성별, 연령, 운동 경험과 무관하게 누구나 참여할 수 있는 터치럭비 활동을 통해 건강한 스포츠 문화를 확산하고, 지속 가능한 커뮤니티를 운영하는 것을 목적으로 한다.</p>
+          <p><strong>제3조 (소재지 및 활동지)</strong> ETR의 주 활동지는 서울특별시 강남구 압구정동 386 한강공원 잠원트랙구장으로 하며, 운영진 판단에 따라 변경될 수 있다.</p>
+          <p><strong>제4조 (회원의 구분)</strong> 체험회원(웰컴데이·비기너클래스·워크인 참여자) / 정회원(소정의 절차를 거쳐 등록된 자)로 구분한다.</p>
+          <p><strong>제6조 (회비)</strong> 연회비(1차 ~12/31, 2차 ~익년 2월 말일)와 월회비(선불, 매월 첫째 주 토요일까지)로 구분한다. 구체적인 금액은 정회원 가입 시 별도 안내한다.</p>
+          <p><strong>제8조 (회원의 의무)</strong> 안전수칙 준수, 성별·국적·경력에 관계없이 다른 회원을 존중하며 차별적 언행 금지, 커뮤니티 명예 훼손 행위 금지.</p>
+          <p><strong>제9조 (회계 투명성)</strong> 연 1회 이상 회비 수입·지출 내역을 웹사이트 자료실에 공개하며, 회계 담당 운영진을 지정해 운용한다.</p>
+          <p><strong>제12조 (탈퇴 및 환불)</strong> 회원은 자유롭게 탈퇴할 수 있으며, 연회비 2차 납부 마감일 이전 탈퇴 시 연회비 100% 환불한다.</p>
+          <p><strong>제13조 (징계)</strong> 회원 의무의 중대한 위반, 3개월 이상 정당한 사유 없는 회비 미납, 명예 훼손 등의 경우 사전 경고 및 소명 기회 후 활동 제한 또는 자격 박탈을 결정한다.</p>
+          <p><strong>제15조 (시행일)</strong> 본 회칙은 2027년 1월 1일부터 시행한다.</p>
+        </div>
+      </details>
+
+      <details class="legal-toggle">
+        <summary>개인정보처리방침 펼쳐보기</summary>
+        <div>
+          <p><strong>1. 수집 항목</strong> 필수: 성함, 휴대폰 번호, ETR 인지 경로, 평소 운동 빈도, 럭비/터치럭비 경험 여부. 선택: 인스타그램 아이디, 참가 동기.</p>
+          <p><strong>2. 이용 목적</strong> 신청자 확인 및 출석 관리, 공지·후기 설문 발송, 팀 구성 및 훈련 강도 조절 참고, 현장 사진 태그 및 커뮤니티 안내, 운영 개선을 위한 통계 활용.</p>
+          <p><strong>3. 보유 기간</strong> 정회원 전환 시 탈퇴 또는 최종 활동일로부터 1년까지 보유 후 파기. 체험회원으로 종료 시 웰컴데이·비기너클래스 종료 후 6개월 이내 파기.</p>
+          <p><strong>4. 제3자 제공</strong> 원칙적으로 외부에 제공하지 않으며, 법령 근거 또는 사전 동의 시 예외로 한다.</p>
+          <p><strong>5. 처리 위탁</strong> 신청 및 접수는 Google Forms를 통해 이루어지며, Google의 개인정보처리방침에 따라 처리될 수 있다.</p>
+          <p><strong>6. 정보주체의 권리</strong> 회원은 언제든지 본인 개인정보의 열람, 정정, 삭제를 요청할 수 있다.</p>
+          <p><strong>7. 개인정보 보호책임자</strong> 담당자: 단장 김지웅 · 이메일: everyonestouch@gmail.com</p>
+          <p><strong>8. 시행일</strong> 본 방침은 2027년 1월 1일부터 시행한다.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const subpages = {
+    about: document.getElementById('page-about'),
+    join: document.getElementById('page-join'),
+    plan: document.getElementById('page-plan'),
+    gallery: document.getElementById('page-gallery'),
+    legal: document.getElementById('page-legal'),
+  };
+
+  function closeAllSubpages(){
+    Object.values(subpages).forEach(el => el.classList.remove('is-open'));
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = menuOverlay.classList.toggle('is-open');
+    menuBtn.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('[data-open]').forEach(el => {
+    el.addEventListener('click', () => {
+      const key = el.getAttribute('data-open');
+      menuOverlay.classList.remove('is-open');
+      menuBtn.classList.remove('is-open');
+      closeAllSubpages();
+      if (subpages[key]) {
+        subpages[key].classList.add('is-open');
+        subpages[key].scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', closeAllSubpages);
+  });
+</script>
+
+</body>
+</html>
