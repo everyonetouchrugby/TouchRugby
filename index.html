@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>ETR — Everyone's Touch Rugby</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
+  @font-face{
+    font-family:'Pretendard Variable';
+    font-weight:45 920;
+    font-style:normal;
+    font-display:swap;
+    src:url("assets/fonts/PretendardVariable.woff2") format('woff2-variations'),
+        url("assets/fonts/PretendardVariable.woff2") format('woff2');
+  }
   :root{
     --ivory:#F5F1E7;
     --ivory-deep:#EDE6D6;
@@ -99,6 +105,9 @@
   .hero img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:center 30%;
+    transform:scale(1.09);
+  }
+  body.intro-done .hero img{
     animation:heroZoom 16s ease-out forwards;
   }
   @keyframes heroZoom{ from{transform:scale(1.09);} to{transform:scale(1);} }
@@ -129,7 +138,9 @@
     margin-bottom:16px;
     opacity:0;
     transform:translateY(16px);
-    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .3s forwards;
+  }
+  body.intro-done .hero h1{
+    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .1s forwards;
   }
   .hero p{
     font-size:16px;
@@ -142,12 +153,16 @@
     display:flex; gap:10px; flex-wrap:wrap;
     opacity:0;
     transform:translateY(16px);
-    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .5s forwards;
+  }
+  body.intro-done .hero-actions{
+    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .3s forwards;
   }
   @keyframes heroTextIn{ to{opacity:1; transform:translateY(0);} }
   @media (prefers-reduced-motion:reduce){
-    .hero img{animation:none;}
-    .hero h1, .hero-actions{animation:none; opacity:1; transform:none;}
+    .hero img, body.intro-done .hero img{animation:none !important; transform:none !important;}
+    .hero h1, .hero-actions, body.intro-done .hero h1, body.intro-done .hero-actions{
+      animation:none !important; opacity:1 !important; transform:none !important;
+    }
   }
   .btn{
     display:inline-flex; align-items:center; justify-content:center;
@@ -934,6 +949,7 @@
   document.body.style.overflow = 'hidden';
   introScreen.addEventListener('click', () => {
     introScreen.classList.add('is-hidden');
+    document.body.classList.add('intro-done');
     document.body.style.overflow = '';
   }, { once: true });
 
