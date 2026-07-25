@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>ETR — Everyone's Touch Rugby</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
   :root{
     --ivory:#F5F1E7;
@@ -20,14 +19,14 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Inter', sans-serif;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
     background:var(--ivory);
     color:var(--black);
     overflow-x:hidden;
   }
   h1,h2,h3, .display{
-    font-family:'Anton', sans-serif;
-    font-weight:400;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
+    font-weight:800;
     letter-spacing:0.01em;
     text-transform:uppercase;
   }
@@ -67,8 +66,9 @@
     object-fit:cover; border:2px solid rgba(255,255,255,.85);
   }
   .brand span{
-    font-family:'Anton', sans-serif;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
     font-size:20px;
+    font-weight:800;
     letter-spacing:0.06em;
   }
   .menu-btn{
@@ -257,7 +257,7 @@
   }
   @media(min-width:680px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
   .footer-grid h4{
-    font-family:'Inter'; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
     font-weight:700; margin-bottom:12px; opacity:.85;
   }
   .footer-grid a, .footer-grid p{display:block; margin-bottom:8px; opacity:.95;}
@@ -295,7 +295,8 @@
   @keyframes introBgZoom{ from{transform:scale(1.1);} to{transform:scale(1);} }
   .intro-text{
     position:relative; z-index:2;
-    font-family:'Anton', sans-serif;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
+    font-weight:800;
     color:var(--white);
     font-size:clamp(34px, 8vw, 76px);
     line-height:1.12;
@@ -338,7 +339,8 @@
   .menu-overlay.is-open{opacity:1; visibility:visible; transform:translateY(0);}
   .menu-list{display:flex; flex-direction:column; gap:2px; text-align:center;}
   .menu-list button, .menu-list a{
-    font-family:'Anton', sans-serif;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
+    font-weight:800;
     font-size:clamp(24px,7vw,40px);
     text-transform:uppercase;
     color:var(--white);
@@ -358,7 +360,7 @@
   }
   .menu-list button:hover, .menu-list a:hover{color:var(--orange);}
   .menu-list button:hover::after, .menu-list a:hover::after{width:60%;}
-  .menu-list .menu-item-sm{font-family:'Inter'; font-size:14px; font-weight:700; letter-spacing:.08em; color:#a89f8d; padding:6px 20px;}
+  .menu-list .menu-item-sm{font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-size:14px; font-weight:700; letter-spacing:.08em; color:#a89f8d; padding:6px 20px;}
   .menu-list .menu-item-sm:hover{color:var(--orange);}
   /* stagger delays for up to 8 items */
   .menu-overlay.is-open .menu-list > *:nth-child(1){transition-delay:.04s;}
@@ -400,7 +402,7 @@
   }
   .subpage .eyebrow{color:var(--orange-deep);}
   .subpage h2{font-size:clamp(30px,7vw,48px); margin-bottom:24px; line-height:1.1;}
-  .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Inter'; font-weight:700;}
+  .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-weight:700;}
   .subpage p, .subpage li{font-size:15px; line-height:1.8; color:#3a352c;}
   .subpage ul{padding-left:18px; margin-bottom:6px;}
 
@@ -411,7 +413,7 @@
   }
   .t-item:last-child{border-bottom:1px solid var(--line);}
   .t-num{
-    font-family:'Anton'; font-size:28px; color:var(--orange); min-width:64px;
+    font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-weight:800; font-size:28px; color:var(--orange); min-width:64px;
   }
   .t-body h4{font-size:16px; margin-bottom:4px;}
   .t-body p{font-size:14px; color:#5c5648;}
