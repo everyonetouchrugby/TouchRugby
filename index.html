@@ -427,6 +427,14 @@
   .value-box:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(21,18,13,.07);}
   .value-box .icon{font-size:22px; margin-bottom:8px;}
   .value-box h4{font-size:15px; margin-bottom:6px;}
+
+  .apply-box{
+    margin:14px 0 28px; padding:20px; border-radius:12px;
+    background:var(--ivory-deep); border:1px solid var(--line);
+  }
+  .apply-status{font-size:14px; color:#5c5648; line-height:1.6; margin-bottom:12px;}
+  .apply-status.apply-open{color:var(--orange-deep); font-weight:700;}
+  .apply-box .btn{margin-top:0;}
   .value-box p{font-size:13px; color:#5c5648; line-height:1.6;}
 
   .gallery-grid{
@@ -648,9 +656,16 @@
 
       <h3>1. Welcome Day</h3>
       <p>신규자가 ETR을 처음 경험하는 날입니다. 특정 팀의 훈련일이 아닌, ETR 전체가 신규자를 맞이하는 커뮤니티 데이예요. 멤버들이 지인을 자유롭게 초대할 수 있고, 기본 룰 안내와 미니게임으로 부담 없이 즐길 수 있습니다. 6월–11월, 매월 마지막 주 토요일에 진행됩니다.</p>
+      <div class="apply-box">
+        <p class="apply-status apply-open">다음 Welcome Day: 2026년 8월 중 (정확한 날짜는 추후 안내됩니다 · 예시)</p>
+        <a href="#" target="_blank" rel="noopener" class="btn btn-solid">Welcome Day 신청하기</a>
+      </div>
 
       <h3>2. Beginner Class</h3>
       <p>터치럭비 보급과 신규 멤버 육성을 위한 3개월 정규 과정입니다 (3월–5월). 패스·터치·롤볼·수비 등 기본기 교육 → 게임 적응 → 5월 대회 출전 및 커뮤니티 정착의 흐름으로 진행됩니다. 클래스 비용 납부로 연회비를 갈음하며, 별도 절차 없이 정회원으로 등록됩니다.</p>
+      <div class="apply-box" id="apply-beginner">
+        <p class="apply-status apply-closed">비기너 클래스 신청기간: 12월~2월 (안내 예정)</p>
+      </div>
 
       <h3>3. Workwalk / 워크인</h3>
       <p>정기훈련에 직접 참여하는 방식입니다. 웰컴데이와 동일한 절차로 정회원 신청과 함께 월회비 납부를 통해 정회원으로 등록됩니다.</p>
@@ -931,6 +946,18 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Beginner Class applications are only open Dec-Feb; show a "not open yet" state otherwise.
+  const BEGINNER_CLASS_FORM_URL = '#';
+  const beginnerBox = document.getElementById('apply-beginner');
+  if (beginnerBox) {
+    const month = new Date().getMonth() + 1; // 1-12
+    const isOpen = month === 12 || month <= 2;
+    beginnerBox.innerHTML = isOpen
+      ? '<p class="apply-status apply-open">지금 비기너 클래스 신청 기간입니다</p>'
+        + `<a href="${BEGINNER_CLASS_FORM_URL}" target="_blank" rel="noopener" class="btn btn-solid">Beginner Class 신청하기</a>`
+      : '<p class="apply-status apply-closed">비기너 클래스 신청기간: 12월~2월 (안내 예정)</p>';
+  }
 
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
