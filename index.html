@@ -41,7 +41,9 @@
     display:flex; align-items:center; justify-content:space-between;
     padding:18px 24px;
     mix-blend-mode:normal;
+    transition:opacity .2s ease, visibility .2s ease;
   }
+  body.subpage-open .site-header{opacity:0; visibility:hidden; pointer-events:none;}
   .brand{
     display:flex; align-items:center; gap:10px;
     color:var(--white);
@@ -235,6 +237,45 @@
   }
   .footer-bottom button{opacity:1; color:var(--white); text-decoration:underline;}
 
+  /* ---------- Intro ---------- */
+  .intro{
+    position:fixed; inset:0; z-index:300;
+    background:var(--black);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  .intro.is-hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  .intro-text{
+    font-family:'Anton', sans-serif;
+    color:var(--white);
+    font-size:clamp(34px, 8vw, 76px);
+    line-height:1.12;
+    text-align:center;
+    text-transform:uppercase;
+    padding:0 24px;
+    max-width:920px;
+    opacity:0;
+    transform:translateY(18px) scale(.97);
+    animation:introTextIn 1s cubic-bezier(.2,.7,.3,1) .15s forwards;
+  }
+  .intro-text span{color:var(--orange);}
+  .intro-hint{
+    position:absolute; bottom:44px; left:0; right:0;
+    text-align:center;
+    color:var(--orange);
+    font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    opacity:0;
+    animation:introHintIn .6s ease .9s forwards, introPulse 1.7s ease-in-out 1.6s infinite;
+  }
+  @keyframes introTextIn{ to{opacity:1; transform:translateY(0) scale(1);} }
+  @keyframes introHintIn{ to{opacity:.9;} }
+  @keyframes introPulse{ 0%,100%{opacity:.9;} 50%{opacity:.3;} }
+  @media (prefers-reduced-motion:reduce){
+    .intro-text, .intro-hint{animation:none; opacity:1; transform:none;}
+  }
+
   /* ---------- Menu Overlay ---------- */
   .menu-overlay{
     position:fixed; inset:0; z-index:150;
@@ -245,27 +286,47 @@
     transition:opacity .35s ease, transform .35s ease, visibility .35s;
   }
   .menu-overlay.is-open{opacity:1; visibility:visible; transform:translateY(0);}
-  .menu-list{display:flex; flex-direction:column; gap:6px; text-align:center;}
-  .menu-list button{
+  .menu-list{display:flex; flex-direction:column; gap:2px; text-align:center;}
+  .menu-list button, .menu-list a{
     font-family:'Anton', sans-serif;
-    font-size:clamp(32px,9vw,56px);
+    font-size:clamp(24px,7vw,40px);
     text-transform:uppercase;
     color:var(--white);
-    padding:10px 20px;
+    padding:8px 20px;
     position:relative;
-    transition:color .2s ease;
+    transition:color .2s ease, opacity .4s ease, transform .4s ease;
+    opacity:0;
+    transform:translateY(14px);
   }
-  .menu-list button::after{
-    content:""; position:absolute; left:50%; bottom:2px; height:4px; width:0%;
+  .menu-overlay.is-open .menu-list button,
+  .menu-overlay.is-open .menu-list a{
+    opacity:1; transform:translateY(0);
+  }
+  .menu-list button::after, .menu-list a::after{
+    content:""; position:absolute; left:50%; bottom:0; height:3px; width:0%;
     background:var(--orange); transform:translateX(-50%); transition:width .25s ease;
   }
-  .menu-list button:hover{color:var(--orange);}
-  .menu-list button:hover::after{width:60%;}
+  .menu-list button:hover, .menu-list a:hover{color:var(--orange);}
+  .menu-list button:hover::after, .menu-list a:hover::after{width:60%;}
+  .menu-list .menu-item-sm{font-family:'Inter'; font-size:14px; font-weight:700; letter-spacing:.08em; color:#a89f8d; padding:6px 20px;}
+  .menu-list .menu-item-sm:hover{color:var(--orange);}
+  /* stagger delays for up to 8 items */
+  .menu-overlay.is-open .menu-list > *:nth-child(1){transition-delay:.04s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(2){transition-delay:.08s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(3){transition-delay:.12s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(4){transition-delay:.16s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(5){transition-delay:.20s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(6){transition-delay:.24s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(7){transition-delay:.28s;}
+  .menu-overlay.is-open .menu-list > *:nth-child(8){transition-delay:.32s;}
   .menu-social{
     position:absolute; bottom:32px; left:0; right:0;
     text-align:center; font-size:13px; letter-spacing:.08em; color:#a89f8d;
   }
   .menu-social a{color:var(--orange); font-weight:600;}
+  @media (prefers-reduced-motion:reduce){
+    .menu-list button, .menu-list a{transition:color .2s ease; opacity:1; transform:none;}
+  }
 
   /* ---------- Sub-page Overlay ---------- */
   .subpage{
@@ -330,6 +391,12 @@
 </style>
 </head>
 <body>
+
+  <!-- ============ INTRO ============ -->
+  <div class="intro" id="introScreen">
+    <p class="intro-text">What is your<br><span>Second Sport?</span></p>
+    <p class="intro-hint">탭하여 시작하기</p>
+  </div>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header">
@@ -408,8 +475,10 @@
           <h4>Menu</h4>
           <a href="javascript:void(0)" data-open="about">About</a>
           <a href="javascript:void(0)" data-open="join">Join</a>
-          <a href="javascript:void(0)" data-open="plan">연간 운영 계획</a>
           <a href="javascript:void(0)" data-open="gallery">Gallery</a>
+          <a href="javascript:void(0)" data-open="resources">자료실</a>
+          <a href="javascript:void(0)" data-open="sponsors">후원사</a>
+          <a href="javascript:void(0)" data-open="contact">문의</a>
         </div>
         <div>
           <h4>Contact</h4>
@@ -425,7 +494,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2027 ETR · Everyone's Touch Rugby</span>
-        <button data-open="legal">회칙 및 개인정보처리방침</button>
+        <button data-open="privacy">개인정보처리방침</button>
       </div>
     </div>
   </footer>
@@ -435,10 +504,13 @@
     <nav class="menu-list">
       <button data-open="about">About</button>
       <button data-open="join">Join</button>
-      <button data-open="plan">연간 운영 계획</button>
       <button data-open="gallery">Gallery</button>
+      <button data-open="resources">자료실</button>
+      <button data-open="sponsors">후원사</button>
+      <button data-open="privacy">개인정보처리방침</button>
+      <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener">Instagram</a>
+      <button data-open="contact">문의</button>
     </nav>
-    <div class="menu-social">@everyones_touchrugby · <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener">Instagram</a></div>
   </div>
 
   <!-- ============ SUBPAGE: ABOUT ============ -->
@@ -508,13 +580,15 @@
     </div>
   </div>
 
-  <!-- ============ SUBPAGE: 연간 운영 계획 ============ -->
-  <div class="subpage" id="page-plan">
+  <!-- ============ SUBPAGE: 자료실 (연간 운영 계획 + 회계 공개) ============ -->
+  <div class="subpage" id="page-resources">
     <button class="subpage-close" data-close>✕</button>
     <div class="subpage-inner">
-      <p class="eyebrow">Annual Schedule</p>
-      <h2>연간 운영 계획</h2>
-      <p>ETR은 매년 동일한 운영 흐름을 반복하며 커뮤니티를 안정적으로 확장합니다. 반복 가능한 구조가 있어야 커뮤니티가 커져도 운영이 흔들리지 않습니다.</p>
+      <p class="eyebrow">Resources</p>
+      <h2>자료실</h2>
+      <p>ETR 운영 관련 자료를 투명하게 공개하는 공간입니다. 연간 운영 일정과 회계 내역을 확인하실 수 있습니다.</p>
+
+      <h3>연간 운영 계획</h3>
       <div class="timeline">
         <div class="t-item">
           <div class="t-num">01</div>
@@ -541,6 +615,12 @@
           <div class="t-body"><h4>12월 – 2월</h4><p>Off-season · 리뷰 · 다음 시즌 준비</p></div>
         </div>
       </div>
+
+      <h3>회계 공개</h3>
+      <p>ETR 회칙 제9조에 따라 연 1회 이상 회비 수입·지출 내역을 공개합니다.</p>
+      <div class="value-box" style="margin-top:14px;">
+        <p style="margin:0;">📄 회계 자료 업로드 준비 중입니다. 자료 확정 후 이 페이지에 게시됩니다.</p>
+      </div>
     </div>
   </div>
 
@@ -562,11 +642,42 @@
     </div>
   </div>
 
-  <!-- ============ SUBPAGE: LEGAL (회칙/개인정보처리방침) ============ -->
-  <div class="subpage" id="page-legal">
+  <!-- ============ SUBPAGE: 후원사 ============ -->
+  <div class="subpage" id="page-sponsors">
     <button class="subpage-close" data-close>✕</button>
     <div class="subpage-inner">
-      <p class="eyebrow">Legal</p>
+      <p class="eyebrow">Sponsors</p>
+      <h2>ETR과 함께하는<br>후원사</h2>
+      <p>ETR의 활동을 응원하고 함께해 주시는 후원사를 소개합니다. (로고 및 소개 업데이트 예정)</p>
+      <div class="gallery-grid">
+        <div class="gallery-placeholder">후원사<br>추가 예정</div>
+        <div class="gallery-placeholder">후원사<br>추가 예정</div>
+        <div class="gallery-placeholder">후원사<br>추가 예정</div>
+      </div>
+      <p style="margin-top:24px; font-size:13px; color:#5c5648;">후원 제안 및 문의: <strong>everyonestouch@gmail.com</strong></p>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: 문의 ============ -->
+  <div class="subpage" id="page-contact">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Contact</p>
+      <h2>문의하기</h2>
+      <p>가입 문의나 궁금한 점은 아래 채널로 편하게 연락 주세요.</p>
+      <div class="value-grid" style="grid-template-columns:1fr;">
+        <a href="#" class="btn btn-solid" style="margin-top:4px;">카카오톡 오픈채팅으로 문의하기</a>
+        <a href="https://www.instagram.com/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-outline" style="color:var(--black); border-color:var(--black); margin-top:4px;">인스타그램 DM 보내기</a>
+      </div>
+      <p style="margin-top:20px; font-size:13px; color:#5c5648;">이메일: everyonestouch@gmail.com</p>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: 개인정보처리방침 (+회칙) ============ -->
+  <div class="subpage" id="page-privacy">
+    <button class="subpage-close" data-close>✕</button>
+    <div class="subpage-inner">
+      <p class="eyebrow">Privacy</p>
       <h2>회칙 및<br>개인정보처리방침</h2>
 
       <details class="legal-toggle" open>
@@ -602,19 +713,29 @@
   </div>
 
 <script>
+  const introScreen = document.getElementById('introScreen');
+  document.body.style.overflow = 'hidden';
+  introScreen.addEventListener('click', () => {
+    introScreen.classList.add('is-hidden');
+    document.body.style.overflow = '';
+  }, { once: true });
+
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
   const subpages = {
     about: document.getElementById('page-about'),
     join: document.getElementById('page-join'),
-    plan: document.getElementById('page-plan'),
     gallery: document.getElementById('page-gallery'),
-    legal: document.getElementById('page-legal'),
+    resources: document.getElementById('page-resources'),
+    sponsors: document.getElementById('page-sponsors'),
+    contact: document.getElementById('page-contact'),
+    privacy: document.getElementById('page-privacy'),
   };
 
   function closeAllSubpages(){
     Object.values(subpages).forEach(el => el.classList.remove('is-open'));
     document.body.style.overflow = '';
+    document.body.classList.remove('subpage-open');
   }
 
   menuBtn.addEventListener('click', () => {
@@ -633,6 +754,7 @@
         subpages[key].classList.add('is-open');
         subpages[key].scrollTop = 0;
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('subpage-open');
       }
     });
   });
