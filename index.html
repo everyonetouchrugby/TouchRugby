@@ -35,6 +35,19 @@
   img{display:block; max-width:100%;}
   button{font-family:inherit; cursor:pointer; border:none; background:none;}
 
+  /* ---------- Scroll reveal ---------- */
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);
+  }
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+  .reveal-d1{transition-delay:.08s;}
+  .reveal-d2{transition-delay:.16s;}
+  .reveal-d3{transition-delay:.24s;}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
   /* ---------- Header ---------- */
   .site-header{
     position:fixed; top:0; left:0; right:0; z-index:200;
@@ -86,7 +99,9 @@
   .hero img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:center 30%;
+    animation:heroZoom 16s ease-out forwards;
   }
+  @keyframes heroZoom{ from{transform:scale(1.09);} to{transform:scale(1);} }
   .hero::after{
     content:"";
     position:absolute; inset:0;
@@ -112,6 +127,9 @@
     font-size:clamp(40px, 11vw, 84px);
     line-height:0.96;
     margin-bottom:16px;
+    opacity:0;
+    transform:translateY(16px);
+    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .3s forwards;
   }
   .hero p{
     font-size:16px;
@@ -120,15 +138,26 @@
     opacity:.92;
     margin-bottom:26px;
   }
-  .hero-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .hero-actions{
+    display:flex; gap:10px; flex-wrap:wrap;
+    opacity:0;
+    transform:translateY(16px);
+    animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .5s forwards;
+  }
+  @keyframes heroTextIn{ to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion:reduce){
+    .hero img{animation:none;}
+    .hero h1, .hero-actions{animation:none; opacity:1; transform:none;}
+  }
   .btn{
     display:inline-flex; align-items:center; justify-content:center;
     padding:15px 26px;
     border-radius:10px;
     font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-    transition:transform .15s ease, background .15s ease;
+    transition:transform .15s ease, background .15s ease, box-shadow .15s ease;
   }
-  .btn:active{transform:scale(.97);}
+  .btn:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(21,18,13,.14);}
+  .btn:active{transform:scale(.97); box-shadow:none;}
   .btn-solid{background:var(--orange); color:var(--white);}
   .btn-solid:hover{background:var(--orange-deep);}
   .btn-outline{border:1.5px solid rgba(255,255,255,.7); color:var(--white);}
@@ -178,7 +207,9 @@
     overflow:hidden;
     padding:24px;
     display:flex; flex-direction:row; gap:18px; align-items:stretch; height:100%;
+    transition:transform .25s ease, box-shadow .25s ease;
   }
+  .card:hover{transform:translateY(-5px); box-shadow:0 14px 28px rgba(21,18,13,.1);}
   .card-text{display:flex; flex-direction:column; flex:1 1 auto; min-width:0;}
   .card-photo{
     flex:0 0 34%;
@@ -333,10 +364,13 @@
     position:fixed; inset:0; z-index:180;
     background:var(--ivory);
     overflow-y:auto;
-    opacity:0; visibility:hidden;
-    transition:opacity .3s ease, visibility .3s;
+    opacity:0; visibility:hidden; transform:translateY(22px);
+    transition:opacity .35s ease, transform .35s ease, visibility .35s;
   }
-  .subpage.is-open{opacity:1; visibility:visible;}
+  .subpage.is-open{opacity:1; visibility:visible; transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .subpage{transition:opacity .2s ease, visibility .2s; transform:none;}
+  }
   .subpage-inner{max-width:760px; margin:0 auto; padding:100px 24px 100px;}
   .subpage-close{
     position:fixed; top:18px; right:22px; z-index:190;
@@ -365,7 +399,11 @@
 
   .value-grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:22px;}
   @media(min-width:600px){.value-grid{grid-template-columns:1fr 1fr 1fr;}}
-  .value-box{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px;}
+  .value-box{
+    background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .value-box:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(21,18,13,.07);}
   .value-box .icon{font-size:22px; margin-bottom:8px;}
   .value-box h4{font-size:15px; margin-bottom:6px;}
   .value-box p{font-size:13px; color:#5c5648; line-height:1.6;}
@@ -404,7 +442,9 @@
     background:var(--white); border:1px solid var(--line); border-radius:12px;
     display:flex; align-items:center; justify-content:center;
     height:92px; padding:14px;
+    transition:transform .2s ease, box-shadow .2s ease;
   }
+  .sponsor-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(21,18,13,.07);}
   .sponsor-card img{max-width:100%; max-height:100%; object-fit:contain;}
 
   ::selection{background:var(--orange); color:var(--white);}
@@ -443,10 +483,10 @@
 
   <!-- ============ ABOUT ============ -->
   <section class="about" id="about">
-    <p class="eyebrow">About ETR</p>
-    <h2>하나의 커뮤니티,<br>유연한 팀 구성.</h2>
-    <p>ETR(Everyone's Touch Rugby)은 국적·성별·연령·운동 경험과 무관하게 누구나 참여할 수 있는 터치럭비 활동을 통해 건강한 스포츠 문화를 확산하는 서울 기반 커뮤니티입니다. 평소에는 하나의 커뮤니티로, 대회 때는 목적에 따라 유연하게 팀을 구성합니다.</p>
-    <div class="about-fact">
+    <p class="eyebrow reveal">About ETR</p>
+    <h2 class="reveal reveal-d1">하나의 커뮤니티,<br>유연한 팀 구성.</h2>
+    <p class="reveal reveal-d2">ETR(Everyone's Touch Rugby)은 국적·성별·연령·운동 경험과 무관하게 누구나 참여할 수 있는 터치럭비 활동을 통해 건강한 스포츠 문화를 확산하는 서울 기반 커뮤니티입니다. 평소에는 하나의 커뮤니티로, 대회 때는 목적에 따라 유연하게 팀을 구성합니다.</p>
+    <div class="about-fact reveal reveal-d3">
       <div><strong>토 9–12</strong><span>정기 훈련</span></div>
       <a href="https://tr.ee/yCBLJreP3z" target="_blank" rel="noopener" style="min-width:120px;"><strong>한강</strong><span>잠원트랙구장 ↗</span></a>
     </div>
@@ -455,10 +495,10 @@
   <!-- ============ JOIN TEASER ============ -->
   <section class="join" id="join-teaser" style="max-width:none;">
     <div style="max-width:900px; margin:0 auto;">
-      <p class="eyebrow">참가 안내</p>
-      <h2>처음이라도<br>괜찮습니다.</h2>
+      <p class="eyebrow reveal">참가 안내</p>
+      <h2 class="reveal reveal-d1">처음이라도<br>괜찮습니다.</h2>
       <div class="cards">
-        <div class="card">
+        <div class="card reveal">
           <div class="card-text">
             <span class="tag">Welcome Day</span>
             <h3>처음 온 사람이 ETR을 경험하는 날</h3>
@@ -467,7 +507,7 @@
           </div>
           <div class="card-photo"><img src="assets/img/welcome-day.jpg" alt="Welcome Day 훈련 사진"></div>
         </div>
-        <div class="card">
+        <div class="card reveal reveal-d1">
           <div class="card-text">
             <span class="tag">Beginner Class</span>
             <h3>터치럭비 기본기를 배우는 3개월 과정</h3>
@@ -484,13 +524,13 @@
   <footer id="get-in-touch">
     <div class="footer-inner">
       <div class="footer-hero">
-        <h2>함께 뛸 준비,<br>되셨나요?</h2>
-        <div class="footer-actions">
+        <h2 class="reveal">함께 뛸 준비,<br>되셨나요?</h2>
+        <div class="footer-actions reveal reveal-d1">
           <a href="https://tr.ee/NzsDN7gR67" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM으로 문의</a>
           <a href="https://linktr.ee/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-light">Linktree 바로가기</a>
         </div>
       </div>
-      <div class="footer-grid">
+      <div class="footer-grid reveal">
         <div>
           <h4>Menu</h4>
           <a href="javascript:void(0)" data-open="about">About</a>
@@ -859,6 +899,16 @@
     introScreen.classList.add('is-hidden');
     document.body.style.overflow = '';
   }, { once: true });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
