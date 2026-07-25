@@ -393,6 +393,20 @@
   }
   .legal-chapter:first-child{margin-top:2px;}
 
+  .sponsor-group{margin-top:32px;}
+  .sponsor-group:first-of-type{margin-top:24px;}
+  .sponsor-group h3{margin:0 0 14px;}
+  .sponsor-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+  }
+  @media(min-width:600px){.sponsor-grid{grid-template-columns:repeat(3,1fr);}}
+  .sponsor-card{
+    background:var(--white); border:1px solid var(--line); border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    height:92px; padding:14px;
+  }
+  .sponsor-card img{max-width:100%; max-height:100%; object-fit:contain;}
+
   ::selection{background:var(--orange); color:var(--white);}
 </style>
 </head>
@@ -665,14 +679,46 @@
     <button class="subpage-close" data-close>✕</button>
     <div class="subpage-inner">
       <p class="eyebrow">Sponsors</p>
-      <h2>ETR과 함께하는<br>후원사</h2>
-      <p>ETR의 활동을 응원하고 함께해 주시는 후원사를 소개합니다. (로고 및 소개 업데이트 예정)</p>
-      <div class="gallery-grid">
-        <div class="gallery-placeholder">후원사<br>추가 예정</div>
-        <div class="gallery-placeholder">후원사<br>추가 예정</div>
-        <div class="gallery-placeholder">후원사<br>추가 예정</div>
+      <h2>ETR과 함께하는<br>후원사 &amp; 파트너</h2>
+      <p>ETR의 활동을 응원하고 함께해 주시는 후원 브랜드와, 대회·훈련에서 함께하는 협력 클럽을 소개합니다.</p>
+
+      <div class="sponsor-group">
+        <h3>공식 협력</h3>
+        <div class="sponsor-grid">
+          <div class="sponsor-card"><img src="assets/img/sponsors/seoul-rugby.png" alt="서울럭비협회"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/stt.png" alt="Seoul Touch Tournament 2026"></div>
+        </div>
       </div>
-      <p style="margin-top:24px; font-size:13px; color:#5c5648;">후원 제안 및 문의: <strong>everyonestouch@gmail.com</strong></p>
+
+      <div class="sponsor-group">
+        <h3>후원 브랜드</h3>
+        <div class="sponsor-grid">
+          <div class="sponsor-card"><img src="assets/img/sponsors/trend-peak.png" alt="TREND PEAK"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/all-round.png" alt="ALL ROUND"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/progainer.png" alt="PROGAINER Protein Supplement"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/heygreen.png" alt="Heygreen"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/plantune.png" alt="Plantune"></div>
+        </div>
+      </div>
+
+      <div class="sponsor-group">
+        <h3>함께하는 럭비 클럽</h3>
+        <div class="sponsor-grid">
+          <div class="sponsor-card"><img src="assets/img/sponsors/seoul-madhoppers.png" alt="Seoul Madhoppers"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/touch-luck-rugby-fc.png" alt="Touch Luck Rugby F.C."></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/han-river-pirates.png" alt="Han River Pirates Youth Rugby Club"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/camp-humphreys.png" alt="Camp Humphreys Stars &amp; Stripes Rugby Club"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/seoul-sisters-rfc.png" alt="Seoul Sisters R.F.C"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/busan-rugby.png" alt="Busan Rugby"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/daegu-legends.png" alt="대구레전즈"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/schwarz.png" alt="Schwarz"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/noside-womens-rugby.png" alt="Noside Women's Rugby"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/seoul-survivors-rfc.png" alt="Seoul Survivors R.F.C"></div>
+          <div class="sponsor-card"><img src="assets/img/sponsors/seoul-nationsity-rugby.png" alt="Seoul Nationsity Rugby Team"></div>
+        </div>
+      </div>
+
+      <p style="margin-top:28px; font-size:13px; color:#5c5648;">후원 제안 및 문의: <strong>everyonestouch@gmail.com</strong></p>
     </div>
   </div>
 
