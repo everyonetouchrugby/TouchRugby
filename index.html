@@ -423,6 +423,20 @@
     display:flex; align-items:center; justify-content:center;
     font-size:18px;
   }
+  .subpage-home-btn{
+    display:none;
+    position:fixed; bottom:20px; left:50%; z-index:190;
+    transform:translateX(-50%);
+    align-items:center; gap:8px;
+    background:var(--black); color:var(--white);
+    padding:14px 26px; border-radius:30px;
+    font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    box-shadow:0 8px 24px rgba(21,18,13,.3);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .subpage-home-btn:hover{background:#000;}
+  .subpage-home-btn:active{transform:translateX(-50%) scale(.96);}
+  body.subpage-open .subpage-home-btn{display:flex;}
   .subpage .eyebrow{color:var(--orange-deep);}
   .subpage h2{font-size:clamp(30px,7vw,48px); margin-bottom:24px; line-height:1.1;}
   .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-weight:700;}
@@ -992,6 +1006,8 @@
       </details>
     </div>
   </div>
+
+  <button class="subpage-home-btn" data-close>홈으로</button>
 
 <script>
   const introScreen = document.getElementById('introScreen');
