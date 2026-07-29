@@ -433,6 +433,18 @@
   .value-box .icon{font-size:22px; margin-bottom:8px;}
   .value-box h4{font-size:15px; margin-bottom:6px;}
 
+  .hub-link{display:block; width:100%; text-align:left; cursor:pointer;}
+
+  .staff-card{
+    background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px;
+    display:flex; gap:16px; align-items:center;
+  }
+  .staff-photo{width:72px; height:72px; border-radius:50%; flex:0 0 auto; overflow:hidden;}
+  .staff-photo img{width:100%; height:100%; object-fit:cover;}
+  .staff-photo-empty{background:var(--ivory-deep); border:2px dashed var(--line);}
+  .staff-card h4{font-size:15px; margin-bottom:4px;}
+  .staff-card p{font-size:13px; color:#5c5648;}
+
   .apply-box{
     margin:14px 0 28px; padding:20px; border-radius:12px;
     background:var(--ivory-deep); border:1px solid var(--line);
@@ -442,6 +454,13 @@
   .apply-box .btn{margin-top:0;}
   .value-box p{font-size:13px; color:#5c5648; line-height:1.6;}
 
+  .gallery-tabs{display:flex; gap:8px; margin-top:22px; flex-wrap:wrap;}
+  .gallery-tab{
+    font-size:13px; font-weight:700; padding:8px 16px; border-radius:20px;
+    background:var(--ivory-deep); color:#5c5648;
+  }
+  .gallery-tab.is-active{background:var(--orange); color:var(--white);}
+
   .gallery-grid{
     display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:24px;
   }
@@ -450,6 +469,7 @@
     aspect-ratio:1; background:var(--ivory-deep); overflow:hidden; border-radius:10px;
     display:flex; align-items:center; justify-content:center;
   }
+  .gallery-grid div.is-hidden{display:none;}
   .gallery-grid img{width:100%; height:100%; object-fit:cover;}
   .gallery-placeholder{font-size:12px; color:#9c927d; text-align:center; padding:10px;}
 
@@ -557,12 +577,11 @@
       <div class="footer-grid reveal">
         <div>
           <h4>Menu</h4>
-          <a href="javascript:void(0)" data-open="about">About</a>
-          <a href="javascript:void(0)" data-open="join">Join</a>
+          <a href="javascript:void(0)" data-home>Home</a>
+          <a href="javascript:void(0)" data-open="information">Information</a>
+          <a href="javascript:void(0)" data-open="events">Events</a>
           <a href="javascript:void(0)" data-open="gallery">Gallery</a>
-          <a href="javascript:void(0)" data-open="resources">자료실</a>
-          <a href="javascript:void(0)" data-open="sponsors">후원사</a>
-          <a href="javascript:void(0)" data-open="contact">문의</a>
+          <a href="javascript:void(0)" data-open="contact">Contact</a>
         </div>
         <div>
           <h4>Contact</h4>
@@ -578,7 +597,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 ETR · Everyone's Touch Rugby</span>
-        <button data-open="privacy">개인정보처리방침</button>
+        <button data-open="privacy">Policy</button>
       </div>
     </div>
   </footer>
@@ -586,14 +605,11 @@
   <!-- ============ MENU OVERLAY ============ -->
   <div class="menu-overlay" id="menuOverlay">
     <nav class="menu-list">
-      <button data-open="about">About</button>
-      <button data-open="join">Join</button>
+      <button data-home>Home</button>
+      <button data-open="information">Information</button>
+      <button data-open="events">Events</button>
       <button data-open="gallery">Gallery</button>
-      <button data-open="resources">자료실</button>
-      <button data-open="sponsors">후원사</button>
-      <button data-open="privacy">개인정보처리방침</button>
-      <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener">Instagram</a>
-      <button data-open="contact">문의</button>
+      <button data-open="contact">Contact</button>
     </nav>
   </div>
 
@@ -645,42 +661,168 @@
     </div>
   </div>
 
-  <!-- ============ SUBPAGE: JOIN ============ -->
-  <div class="subpage" id="page-join">
+  <!-- ============ SUBPAGE: INFORMATION (hub) ============ -->
+  <div class="subpage" id="page-information">
     <div class="subpage-inner">
-      <p class="eyebrow">Join ETR</p>
-      <h2>참가 경로 안내</h2>
-      <p>ETR에 합류하는 방법은 세 가지입니다. 어떤 경로로 들어오든, 모든 길은 하나의 ETR Community로 이어집니다.</p>
+      <p class="eyebrow">Information</p>
+      <h2>ETR을 더<br>자세히 알아보세요.</h2>
+      <div class="value-grid" style="grid-template-columns:1fr;">
+        <button data-open="whatis" class="value-box hub-link">
+          <h4>What is Touch Rugby</h4>
+          <p>터치럭비 소개, 연간 운영 계획, 회계 공개</p>
+        </button>
+        <button data-open="about" class="value-box hub-link">
+          <h4>History</h4>
+          <p>ETR이 시작된 이야기 (WHY · HOW · WHAT)</p>
+        </button>
+        <button data-open="privacy" class="value-box hub-link">
+          <h4>Policy</h4>
+          <p>회칙 및 개인정보처리방침</p>
+        </button>
+        <button data-open="venue" class="value-box hub-link">
+          <h4>The Venue</h4>
+          <p>훈련 장소 및 오시는 길</p>
+        </button>
+        <button data-open="staff" class="value-box hub-link">
+          <h4>Staff</h4>
+          <p>운영진 및 코치진 소개</p>
+        </button>
+        <button data-open="sponsors" class="value-box hub-link">
+          <h4>Partners</h4>
+          <p>후원 브랜드 및 협력 클럽</p>
+        </button>
+      </div>
+    </div>
+  </div>
 
-      <h3>1. Welcome Day</h3>
+  <!-- ============ SUBPAGE: EVENTS (hub) ============ -->
+  <div class="subpage" id="page-events">
+    <div class="subpage-inner">
+      <p class="eyebrow">Events</p>
+      <h2>참가할 수 있는<br>프로그램들.</h2>
+      <div class="value-grid" style="grid-template-columns:1fr;">
+        <button data-open="welcomeday" class="value-box hub-link">
+          <h4>Welcome Day</h4>
+          <p>처음 온 사람이 ETR을 경험하는 날 · 6월–11월</p>
+        </button>
+        <button data-open="beginnerclass" class="value-box hub-link">
+          <h4>Beginner Class</h4>
+          <p>터치럭비 기본기를 배우는 3개월 과정 · 3월–5월</p>
+        </button>
+        <button data-open="social" class="value-box hub-link">
+          <h4>Social League</h4>
+          <p>준비 중입니다 · 추후 안내 예정</p>
+        </button>
+        <button data-open="stt" class="value-box hub-link">
+          <h4>STT (Seoul Touch Tournament)</h4>
+          <p>서울시체육회·서울시럭비협회 공동 개최 · 5월 · 11월</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: WELCOME DAY ============ -->
+  <div class="subpage" id="page-welcomeday">
+    <div class="subpage-inner">
+      <p class="eyebrow">Events · Welcome Day</p>
+      <h2>처음 온 사람이<br>ETR을 경험하는 날</h2>
       <p>신규자가 ETR을 처음 경험하는 날입니다. 특정 팀의 훈련일이 아닌, ETR 전체가 신규자를 맞이하는 커뮤니티 데이예요. 멤버들이 지인을 자유롭게 초대할 수 있고, 기본 룰 안내와 미니게임으로 부담 없이 즐길 수 있습니다. 6월–11월, 매월 마지막 주 토요일에 진행됩니다.</p>
       <div class="apply-box">
         <p class="apply-status apply-open">다음 Welcome Day: 2026년 8월 중 (정확한 날짜는 추후 안내됩니다 · 예시)</p>
         <a href="#" target="_blank" rel="noopener" class="btn btn-solid">Welcome Day 신청하기</a>
       </div>
 
-      <h3>2. Beginner Class</h3>
-      <p>터치럭비 보급과 신규 멤버 육성을 위한 3개월 정규 과정입니다 (3월–5월). 패스·터치·롤볼·수비 등 기본기 교육 → 게임 적응 → 5월 대회 출전 및 커뮤니티 정착의 흐름으로 진행됩니다. 클래스 비용 납부로 연회비를 갈음하며, 별도 절차 없이 정회원으로 등록됩니다.</p>
-      <div class="apply-box" id="apply-beginner">
-        <p class="apply-status apply-closed">비기너 클래스 신청기간: 12월~2월 (안내 예정)</p>
-      </div>
-
-      <h3>3. Workwalk / 워크인</h3>
-      <p>정기훈련에 직접 참여하는 방식입니다. 웰컴데이와 동일한 절차로 정회원 신청과 함께 월회비 납부를 통해 정회원으로 등록됩니다.</p>
-
-      <h3>회비 안내</h3>
-      <p>회비는 연회비(1차 ~12월 31일 / 2차 ~익년 2월 말일)와 월회비(선불, 매월 첫째 주 토요일까지)로 구분됩니다. 구체적인 금액은 정회원 가입 시 별도 안내드려요. 연회비 납부 후 2차 납부 마감일 이전 탈퇴 시 100% 환불됩니다.</p>
+      <h3>Workwalk / 워크인으로 참여하기</h3>
+      <p>정기훈련에 직접 참여하는 방식입니다. Welcome Day와 동일한 절차로 정회원 신청과 함께 월회비 납부를 통해 정회원으로 등록됩니다.</p>
 
       <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-solid" style="margin-top:20px;">인스타그램 DM으로 참가 문의하기</a>
     </div>
   </div>
 
-  <!-- ============ SUBPAGE: 자료실 (연간 운영 계획 + 회계 공개) ============ -->
-  <div class="subpage" id="page-resources">
+  <!-- ============ SUBPAGE: BEGINNER CLASS ============ -->
+  <div class="subpage" id="page-beginnerclass">
     <div class="subpage-inner">
-      <p class="eyebrow">Resources</p>
-      <h2>자료실</h2>
-      <p>ETR 운영 관련 자료를 투명하게 공개하는 공간입니다. 연간 운영 일정과 회계 내역, 터치럭비 학습 자료를 확인하실 수 있습니다.</p>
+      <p class="eyebrow">Events · Beginner Class</p>
+      <h2>터치럭비 기본기를<br>배우는 3개월 과정</h2>
+      <p>터치럭비 보급과 신규 멤버 육성을 위한 3개월 정규 과정입니다 (3월–5월). 패스·터치·롤볼·수비 등 기본기 교육 → 게임 적응 → 5월 대회 출전 및 커뮤니티 정착의 흐름으로 진행됩니다. 클래스 비용 납부로 연회비를 갈음하며, 별도 절차 없이 정회원으로 등록됩니다.</p>
+      <div class="apply-box" id="apply-beginner">
+        <p class="apply-status apply-closed">비기너 클래스 신청기간: 12월~2월 (안내 예정)</p>
+      </div>
+
+      <h3>회비 안내</h3>
+      <p>회비는 연회비(1차 ~12월 31일 / 2차 ~익년 2월 말일)와 월회비(선불, 매월 첫째 주 토요일까지)로 구분됩니다. 구체적인 금액은 정회원 가입 시 별도 안내드려요. 자세한 내용은 <button data-open="privacy" style="display:inline; padding:0; font:inherit; color:inherit; text-decoration:underline;">Policy 페이지</button>를 참고해 주세요.</p>
+
+      <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-solid" style="margin-top:20px;">인스타그램 DM으로 참가 문의하기</a>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: SOCIAL LEAGUE ============ -->
+  <div class="subpage" id="page-social">
+    <div class="subpage-inner">
+      <p class="eyebrow">Events · Social League</p>
+      <h2>Social League</h2>
+      <p>Social League 프로그램은 현재 준비 중입니다. 구체적인 내용은 확정되는 대로 이 페이지에 안내드리겠습니다.</p>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: STT ============ -->
+  <div class="subpage" id="page-stt">
+    <div class="subpage-inner">
+      <p class="eyebrow">Events · STT</p>
+      <h2>Seoul Touch<br>Tournament</h2>
+      <p>서울시체육회 및 서울시럭비협회와 공동 개최·진행하는 생활체육 터치럭비 대회입니다. 그동안 쌓아온 경험을 마음껏 표현할 수 있는 무대예요.</p>
+      <div class="value-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="value-box"><h4>5월</h4><p>상반기 STT</p></div>
+        <div class="value-box"><h4>11월</h4><p>하반기 STT</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: THE VENUE ============ -->
+  <div class="subpage" id="page-venue">
+    <div class="subpage-inner">
+      <p class="eyebrow">The Venue</p>
+      <h2>매주 토요일,<br>이곳에서 만나요.</h2>
+      <p>ETR의 정기훈련은 매주 토요일 09:00–12:00, 한강공원 잠원트랙구장에서 진행됩니다.</p>
+      <div class="value-box" style="margin-top:20px;">
+        <h4>장소</h4>
+        <p><a href="https://share.google/7oouxvgcuD89oOBrO" target="_blank" rel="noopener" style="text-decoration:underline;">한강공원 잠원트랙구장 ↗</a></p>
+      </div>
+      <div class="value-box" style="margin-top:14px;">
+        <h4>정기훈련 시간</h4>
+        <p>매주 토요일 09:00–12:00</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: STAFF ============ -->
+  <div class="subpage" id="page-staff">
+    <div class="subpage-inner">
+      <p class="eyebrow">Staff</p>
+      <h2>ETR을 이끄는<br>사람들.</h2>
+      <div class="value-grid" style="grid-template-columns:1fr;">
+        <div class="staff-card">
+          <div class="staff-photo staff-photo-empty"></div>
+          <div><h4>단장 김지웅</h4><p>U-20 아시아 럭비 토너먼트 우승</p></div>
+        </div>
+        <div class="staff-card">
+          <div class="staff-photo staff-photo-empty"></div>
+          <div><h4>코치 Patrick</h4><p>전 미국 터치럭비 국가대표 선수</p></div>
+        </div>
+        <div class="staff-card">
+          <div class="staff-photo staff-photo-empty"></div>
+          <div><h4>코치 오준석</h4><p>엘리트 럭비 선수 출신 · 현 중학교 교사</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUBPAGE: WHAT IS TOUCH RUGBY (학습자료 + 연간 운영 계획 + 회계 공개) ============ -->
+  <div class="subpage" id="page-whatis">
+    <div class="subpage-inner">
+      <p class="eyebrow">Information · What is Touch Rugby</p>
+      <h2>터치럭비를<br>소개합니다.</h2>
+      <p>ETR 운영 관련 자료를 투명하게 공개하는 공간입니다. 터치럭비 학습 자료와 연간 운영 일정, 회계 내역을 확인하실 수 있습니다.</p>
 
       <h3>터치럭비 알아보기</h3>
       <div class="value-grid" style="grid-template-columns:1fr 1fr;">
@@ -736,54 +878,60 @@
       <p class="eyebrow">Gallery</p>
       <h2>필드 위의 순간들</h2>
       <p>정기훈련, 웰컴데이, 대회 현장의 사진들을 모았습니다.</p>
+      <div class="gallery-tabs">
+        <button class="gallery-tab is-active" data-year-filter="all">전체</button>
+        <button class="gallery-tab" data-year-filter="2026">2026</button>
+        <button class="gallery-tab" data-year-filter="2025">2025</button>
+        <button class="gallery-tab" data-year-filter="2024">2024</button>
+      </div>
       <div class="gallery-grid">
-        <div><img src="assets/img/hero.jpg" alt="ETR 대회 사진"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-1.jpg" alt="터치 경합 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-2.jpg" alt="공격 전개 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-3.jpg" alt="경기 전 팀 허들"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-4.jpg" alt="대회 현장 깃발"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-5.jpg" alt="경기 중 패스 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-6.jpg" alt="터치 시도 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-7.jpg" alt="공을 들고 달리는 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-8.jpg" alt="경기 후 팀 모임"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-9.jpg" alt="터치 경합 장면 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-10.jpg" alt="대회 대기 중인 팀"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-11.jpg" alt="대회 단체 기념 사진"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-12.jpg" alt="골대 앞 단체 사진"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-13.jpg" alt="한강 노을 정기훈련"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-14.jpg" alt="한강 노을 아래 훈련 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-15.jpg" alt="노을 지는 훈련장 풍경"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-16.jpg" alt="노을 아래 정기훈련"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-17.jpg" alt="대회 전 몸풀기"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-18.jpg" alt="필드에 모인 팀들"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-19.jpg" alt="경기 대기 중인 선수들"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-20.jpg" alt="시상 후 기념 사진"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-21.jpg" alt="대회 우승 단체 사진"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-22.jpg" alt="대회 우승 축하 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-23.jpg" alt="킥오프 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-24.jpg" alt="사이드라인 경합 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-25.jpg" alt="경기 중 공격 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-26.jpg" alt="경기 중 수비 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-27.jpg" alt="경기 중 패스 장면 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-28.jpg" alt="경기 전 팀 허들 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-29.jpg" alt="경기 중 달리는 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-30.jpg" alt="휴식 중인 선수"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-31.jpg" alt="공격 전개 장면 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-32.jpg" alt="터치 시도 장면 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-33.jpg" alt="추격 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-34.jpg" alt="필드 위의 공"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-35.jpg" alt="터치 경합 장면 3"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-36.jpg" alt="롤볼 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-37.jpg" alt="수비 대형"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-38.jpg" alt="경기 중 대치 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-39.jpg" alt="패스 연결 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-40.jpg" alt="공격 돌파 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-41.jpg" alt="필드 위 선수들"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-42.jpg" alt="하이파이브 하는 선수들"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-43.jpg" alt="공을 뺏는 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-44.jpg" alt="경기 중 이동 장면"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-45.jpg" alt="경기 중 이동 장면 2"></div>
-        <div><img loading="lazy" src="assets/img/gallery/gallery-46.jpg" alt="경기 중 협력 수비 장면"></div>
+        <div data-year="2026"><img src="assets/img/hero.jpg" alt="ETR 대회 사진"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-1.jpg" alt="터치 경합 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-2.jpg" alt="공격 전개 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-3.jpg" alt="경기 전 팀 허들"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-4.jpg" alt="대회 현장 깃발"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-5.jpg" alt="경기 중 패스 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-6.jpg" alt="터치 시도 장면"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-7.jpg" alt="공을 들고 달리는 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-8.jpg" alt="경기 후 팀 모임"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-9.jpg" alt="터치 경합 장면 2"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-10.jpg" alt="대회 대기 중인 팀"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-11.jpg" alt="대회 단체 기념 사진"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-12.jpg" alt="골대 앞 단체 사진"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-13.jpg" alt="한강 노을 정기훈련"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-14.jpg" alt="한강 노을 아래 훈련 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-15.jpg" alt="노을 지는 훈련장 풍경"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-16.jpg" alt="노을 아래 정기훈련"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-17.jpg" alt="대회 전 몸풀기"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-18.jpg" alt="필드에 모인 팀들"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-19.jpg" alt="경기 대기 중인 선수들"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-20.jpg" alt="시상 후 기념 사진"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-21.jpg" alt="대회 우승 단체 사진"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-22.jpg" alt="대회 우승 축하 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-23.jpg" alt="킥오프 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-24.jpg" alt="사이드라인 경합 장면"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-25.jpg" alt="경기 중 공격 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-26.jpg" alt="경기 중 수비 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-27.jpg" alt="경기 중 패스 장면 2"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-28.jpg" alt="경기 전 팀 허들 2"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-29.jpg" alt="경기 중 달리는 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-30.jpg" alt="휴식 중인 선수"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-31.jpg" alt="공격 전개 장면 2"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-32.jpg" alt="터치 시도 장면 2"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-33.jpg" alt="추격 장면"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-34.jpg" alt="필드 위의 공"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-35.jpg" alt="터치 경합 장면 3"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-36.jpg" alt="롤볼 장면"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-37.jpg" alt="수비 대형"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-38.jpg" alt="경기 중 대치 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-39.jpg" alt="패스 연결 장면"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-40.jpg" alt="공격 돌파 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-41.jpg" alt="필드 위 선수들"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-42.jpg" alt="하이파이브 하는 선수들"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-43.jpg" alt="공을 뺏는 장면"></div>
+        <div data-year="2024"><img loading="lazy" src="assets/img/gallery/gallery-44.jpg" alt="경기 중 이동 장면"></div>
+        <div data-year="2026"><img loading="lazy" src="assets/img/gallery/gallery-45.jpg" alt="경기 중 이동 장면 2"></div>
+        <div data-year="2025"><img loading="lazy" src="assets/img/gallery/gallery-46.jpg" alt="경기 중 협력 수비 장면"></div>
       </div>
     </div>
   </div>
@@ -791,8 +939,8 @@
   <!-- ============ SUBPAGE: 후원사 ============ -->
   <div class="subpage" id="page-sponsors">
     <div class="subpage-inner">
-      <p class="eyebrow">Sponsors</p>
-      <h2>ETR과 함께하는<br>후원사 &amp; 파트너</h2>
+      <p class="eyebrow">Information · Partners</p>
+      <h2>ETR과 함께하는<br>Partners</h2>
       <p>ETR의 활동을 응원하고 함께해 주시는 후원 브랜드와, 대회·훈련에서 함께하는 협력 클럽을 소개합니다.</p>
 
       <div class="sponsor-group">
@@ -967,11 +1115,18 @@
 <script>
   const introScreen = document.getElementById('introScreen');
   document.body.style.overflow = 'hidden';
-  introScreen.addEventListener('click', () => {
+
+  function dismissIntro(){
     introScreen.classList.add('is-hidden');
     document.body.classList.add('intro-done');
     document.body.style.overflow = '';
-  }, { once: true });
+  }
+  function showIntro(){
+    introScreen.classList.remove('is-hidden');
+    document.body.classList.remove('intro-done');
+    document.body.style.overflow = 'hidden';
+  }
+  introScreen.addEventListener('click', dismissIntro);
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -999,9 +1154,16 @@
   const menuOverlay = document.getElementById('menuOverlay');
   const subpages = {
     about: document.getElementById('page-about'),
-    join: document.getElementById('page-join'),
+    information: document.getElementById('page-information'),
+    events: document.getElementById('page-events'),
+    welcomeday: document.getElementById('page-welcomeday'),
+    beginnerclass: document.getElementById('page-beginnerclass'),
+    social: document.getElementById('page-social'),
+    stt: document.getElementById('page-stt'),
+    venue: document.getElementById('page-venue'),
+    staff: document.getElementById('page-staff'),
+    whatis: document.getElementById('page-whatis'),
     gallery: document.getElementById('page-gallery'),
-    resources: document.getElementById('page-resources'),
     sponsors: document.getElementById('page-sponsors'),
     contact: document.getElementById('page-contact'),
     privacy: document.getElementById('page-privacy'),
@@ -1039,6 +1201,29 @@
     menuBtn.classList.remove('is-open');
     closeAllSubpages();
   });
+
+  document.querySelectorAll('[data-home]').forEach(el => {
+    el.addEventListener('click', () => {
+      menuOverlay.classList.remove('is-open');
+      menuBtn.classList.remove('is-open');
+      closeAllSubpages();
+      showIntro();
+    });
+  });
+
+  const galleryGrid = document.querySelector('.gallery-grid');
+  if (galleryGrid) {
+    document.querySelectorAll('.gallery-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const year = tab.getAttribute('data-year-filter');
+        galleryGrid.querySelectorAll('[data-year]').forEach(item => {
+          item.classList.toggle('is-hidden', year !== 'all' && item.getAttribute('data-year') !== year);
+        });
+      });
+    });
+  }
 </script>
 
 </body>
