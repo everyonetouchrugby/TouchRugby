@@ -92,6 +92,7 @@
     font-weight:800;
     letter-spacing:0.06em;
   }
+
   .menu-btn{
     width:44px; height:44px;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -108,6 +109,42 @@
   .menu-btn.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .menu-btn.is-open span:nth-child(2){opacity:0;}
   .menu-btn.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .top-nav{display:none;}
+  @media(min-width:900px){
+    .site-header{padding:20px 40px;}
+    .menu-btn{display:none;}
+    .top-nav{
+      display:flex; align-items:center; gap:36px;
+      font-size:14px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+      color:var(--white);
+      filter:drop-shadow(0 1px 4px rgba(0,0,0,.35));
+      transition:color .2s ease, filter .2s ease;
+    }
+    body.subpage-open .top-nav{color:var(--black); filter:none;}
+    .top-nav > button{color:inherit;}
+    .top-nav-item{position:relative;}
+    .top-nav-parent{color:inherit; display:flex; align-items:center; gap:5px;}
+    .top-nav-parent::after{content:"▾"; font-size:10px;}
+    .top-nav-dropdown{
+      position:absolute; top:100%; left:50%; margin-top:14px;
+      transform:translateX(-50%) translateY(4px);
+      background:var(--white); border-radius:12px; padding:8px;
+      min-width:200px; box-shadow:0 16px 36px rgba(21,18,13,.2);
+      display:flex; flex-direction:column; gap:1px;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .15s ease, transform .15s ease, visibility .15s;
+    }
+    .top-nav-item.is-open .top-nav-dropdown{
+      opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+    }
+    .top-nav-dropdown button{
+      color:var(--black); text-align:left; font-size:13px; font-weight:600;
+      text-transform:none; letter-spacing:0;
+      padding:10px 14px; border-radius:8px; white-space:nowrap;
+    }
+    .top-nav-dropdown button:hover{background:var(--ivory-deep); color:var(--orange-deep);}
+  }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -434,6 +471,31 @@
       <img src="assets/img/logo.png" alt="ETR 로고">
       <span>ETR</span>
     </a>
+    <nav class="top-nav">
+      <button data-home>Home</button>
+      <div class="top-nav-item">
+        <button class="top-nav-parent">Information</button>
+        <div class="top-nav-dropdown">
+          <button data-open="whatis">What is Touch Rugby</button>
+          <button data-open="about">History</button>
+          <button data-open="privacy">Policy</button>
+          <button data-open="venue">The Venue</button>
+          <button data-open="staff">Staff</button>
+          <button data-open="sponsors">Partners</button>
+        </div>
+      </div>
+      <div class="top-nav-item">
+        <button class="top-nav-parent">Events</button>
+        <div class="top-nav-dropdown">
+          <button data-open="welcomeday">Welcome Day</button>
+          <button data-open="beginnerclass">Beginner Class</button>
+          <button data-open="social">Social League</button>
+          <button data-open="stt">STT</button>
+        </div>
+      </div>
+      <button data-open="gallery">Gallery</button>
+      <button data-open="contact">Contact</button>
+    </nav>
     <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
     </button>
@@ -1078,11 +1140,16 @@
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
+  function closeTopNavDropdowns(){
+    document.querySelectorAll('.top-nav-item').forEach(i => i.classList.remove('is-open'));
+  }
+
   document.querySelectorAll('[data-open]').forEach(el => {
     el.addEventListener('click', () => {
       const key = el.getAttribute('data-open');
       menuOverlay.classList.remove('is-open');
       menuBtn.classList.remove('is-open');
+      closeTopNavDropdowns();
       closeAllSubpages();
       if (subpages[key]) {
         subpages[key].classList.add('is-open');
@@ -1096,13 +1163,26 @@
   document.querySelector('.brand').addEventListener('click', () => {
     menuOverlay.classList.remove('is-open');
     menuBtn.classList.remove('is-open');
+    closeTopNavDropdowns();
     closeAllSubpages();
   });
+
+  document.querySelectorAll('.top-nav-parent').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const item = btn.closest('.top-nav-item');
+      const wasOpen = item.classList.contains('is-open');
+      closeTopNavDropdowns();
+      if (!wasOpen) item.classList.add('is-open');
+    });
+  });
+  document.addEventListener('click', closeTopNavDropdowns);
 
   document.querySelectorAll('[data-home]').forEach(el => {
     el.addEventListener('click', () => {
       menuOverlay.classList.remove('is-open');
       menuBtn.classList.remove('is-open');
+      closeTopNavDropdowns();
       closeAllSubpages();
     });
   });
