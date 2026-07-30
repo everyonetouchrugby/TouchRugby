@@ -29,6 +29,7 @@
     --orange-deep:#D8430C;
     --white:#FFFFFF;
     --line:#DDD3BE;
+    --blue:#2F6FED;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -251,7 +252,8 @@
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .card:hover{transform:translateY(-5px); box-shadow:0 14px 28px rgba(21,18,13,.1);}
-  .card-icon{font-size:26px; margin-bottom:10px;}
+  .card-icon{color:var(--blue); margin-bottom:10px;}
+  .card-icon svg{width:28px; height:28px; display:block;}
   .card-label{
     font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
     color:#9c927d; margin-bottom:10px;
@@ -267,18 +269,27 @@
     padding:0 24px 40px;
   }
   .footer-hero{
-    position:relative;
     margin:0 -24px 40px;
-    padding:72px 24px 44px;
-    background:
-      linear-gradient(180deg, rgba(21,17,10,.25) 0%, rgba(216,67,12,.55) 55%, rgba(255,90,31,.5) 100%),
-      url("assets/img/intro.jpg") center 30%/cover no-repeat;
+    padding:56px 24px 0;
+    background:var(--ivory);
+    color:var(--black);
+    display:flex; flex-direction:column; gap:28px;
   }
-  .footer-hero > *{position:relative; z-index:1;}
+  .footer-hero-text{padding-bottom:36px; color:var(--black);}
+  .footer-hero-text .btn-light{border:1px solid var(--line);}
+  .footer-hero-photo{
+    margin:0 -24px; min-height:280px;
+    background:url("assets/img/intro.jpg") center 30%/cover no-repeat;
+  }
+  @media(min-width:680px){
+    .footer-hero{flex-direction:row; align-items:stretch; padding:0; gap:0;}
+    .footer-hero-text{flex:1; padding:64px 40px; display:flex; flex-direction:column; justify-content:center;}
+    .footer-hero-photo{flex:1; margin:0; min-height:auto;}
+  }
   .footer-inner{max-width:900px; margin:0 auto;}
   footer h2{font-size:clamp(26px,6vw,40px); line-height:1.2; margin-bottom:12px;}
   .footer-hero p{font-size:16px; margin-bottom:24px; opacity:.9;}
-  .footer-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:56px;}
+  .footer-actions{display:flex; gap:12px; flex-wrap:wrap;}
   .footer-grid{
     display:grid; grid-template-columns:1fr; gap:32px;
     border-top:1px solid rgba(255,255,255,.35);
@@ -520,14 +531,14 @@
       <h2 class="reveal reveal-d1">처음이라도<br>괜찮습니다.</h2>
       <div class="cards">
         <div class="card reveal">
-          <div class="card-icon">🏃</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"></circle><path d="M4 21l3.5-5 3-2-1-5.5L14 7l3 4 3 1"></path><path d="M9.5 14L6 15.5 4.5 21"></path><path d="M11 10l-3 1.5"></path></svg></div>
           <span class="card-label">Welcome Day</span>
           <h3>아직 럭비공을 잡아본 적 없다면</h3>
           <p>이번 주 웰컴데이에서 부담 없이 시작하세요.</p>
           <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="welcomeday">웰컴데이 신청</button>
         </div>
         <div class="card reveal reveal-d1">
-          <div class="card-icon">🎓</div>
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5-10 5L2 8z"></path><path d="M6 10.5V16c0 1.1 2.7 3 6 3s6-1.9 6-3v-5.5"></path><path d="M22 8v6"></path></svg></div>
           <span class="card-label">Beginner Class</span>
           <h3>3개월 제대로 배우고 싶다면</h3>
           <p>3월 개강, 기본기부터 체계적으로 배우는 정규 과정입니다.</p>
@@ -541,12 +552,15 @@
   <footer id="get-in-touch">
     <div class="footer-inner">
       <div class="footer-hero">
-        <h2 class="reveal">다음 터치는,<br>당신 차례입니다.</h2>
-        <p class="reveal">이제 필드로.</p>
-        <div class="footer-actions reveal reveal-d1">
-          <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM문의하기</a>
-          <button class="btn btn-light" data-open="events">정규멤버 신청하기</button>
+        <div class="footer-hero-text">
+          <h2 class="reveal">다음 터치는,<br>당신 차례입니다.</h2>
+          <p class="reveal">이제 필드로.</p>
+          <div class="footer-actions reveal reveal-d1">
+            <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM문의하기</a>
+            <button class="btn btn-light" data-open="events">정규멤버 신청하기</button>
+          </div>
         </div>
+        <div class="footer-hero-photo" role="img" aria-label="터치럭비 경기 사진"></div>
       </div>
       <div class="footer-grid reveal">
         <div>
