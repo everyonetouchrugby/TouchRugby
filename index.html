@@ -120,9 +120,6 @@
   .hero img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:center 30%;
-    transform:scale(1.09);
-  }
-  body.intro-done .hero img{
     animation:heroZoom 16s ease-out forwards;
   }
   @keyframes heroZoom{ from{transform:scale(1.09);} to{transform:scale(1);} }
@@ -153,8 +150,6 @@
     margin-bottom:16px;
     opacity:0;
     transform:translateY(16px);
-  }
-  body.intro-done .hero h1{
     animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .1s forwards;
   }
   .hero p{
@@ -168,14 +163,12 @@
     display:flex; gap:10px; flex-wrap:wrap;
     opacity:0;
     transform:translateY(16px);
-  }
-  body.intro-done .hero-actions{
     animation:heroTextIn .9s cubic-bezier(.2,.7,.3,1) .3s forwards;
   }
   @keyframes heroTextIn{ to{opacity:1; transform:translateY(0);} }
   @media (prefers-reduced-motion:reduce){
-    .hero img, body.intro-done .hero img{animation:none !important; transform:none !important;}
-    .hero h1, .hero-actions, body.intro-done .hero h1, body.intro-done .hero-actions{
+    .hero img{animation:none !important; transform:none !important;}
+    .hero h1, .hero-actions{
       animation:none !important; opacity:1 !important; transform:none !important;
     }
   }
@@ -214,34 +207,21 @@
   @media(min-width:680px){.cards{grid-template-columns:1fr 1fr;}}
   .card{
     background:var(--white);
-    border:1px solid var(--orange);
+    border:1px solid var(--line);
     border-radius:16px;
-    overflow:hidden;
-    padding:24px;
-    display:flex; flex-direction:row; gap:18px; align-items:stretch; height:100%;
+    padding:28px 24px;
+    display:flex; flex-direction:column; align-items:flex-start; height:100%;
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .card:hover{transform:translateY(-5px); box-shadow:0 14px 28px rgba(21,18,13,.1);}
-  .card-text{display:flex; flex-direction:column; flex:1 1 auto; min-width:0;}
-  .card-photo{
-    flex:0 0 34%;
-    border-radius:12px;
-    overflow:hidden;
-    min-height:120px;
+  .card-icon{font-size:26px; margin-bottom:10px;}
+  .card-label{
+    font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    color:#9c927d; margin-bottom:10px;
   }
-  .card-photo img{width:100%; height:100%; object-fit:cover; display:block;}
-  @media(max-width:520px){
-    .card{flex-direction:column;}
-    .card-photo{flex:0 0 140px; width:100%;}
-  }
-  .card .tag{
-    align-self:flex-start;
-    font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--white); background:var(--orange); border-radius:20px; padding:4px 12px; margin-bottom:18px;
-  }
-  .card h3{font-size:22px; margin-bottom:10px; color:var(--black);}
-  .card p{font-size:14px; line-height:1.7; color:#5c5648; flex-grow:1;}
-  .card .meta{margin-top:18px; font-size:13px; color:var(--orange-deep); font-weight:600;}
+  .card h3{font-size:20px; margin-bottom:10px; color:var(--black);}
+  .card p{font-size:14px; line-height:1.7; color:#5c5648; margin-bottom:20px;}
+  .card .btn{margin-top:auto;}
 
   /* ---------- Footer ---------- */
   footer{
@@ -255,11 +235,12 @@
     padding:72px 24px 44px;
     background:
       linear-gradient(180deg, rgba(21,17,10,.25) 0%, rgba(216,67,12,.55) 55%, rgba(255,90,31,.5) 100%),
-      url("assets/img/footer-hero.jpg") center 30%/cover no-repeat;
+      url("assets/img/intro.jpg") center 30%/cover no-repeat;
   }
   .footer-hero > *{position:relative; z-index:1;}
   .footer-inner{max-width:900px; margin:0 auto;}
-  footer h2{font-size:clamp(26px,6vw,40px); line-height:1.2; margin-bottom:28px;}
+  footer h2{font-size:clamp(26px,6vw,40px); line-height:1.2; margin-bottom:12px;}
+  .footer-hero p{font-size:16px; margin-bottom:24px; opacity:.9;}
   .footer-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:56px;}
   .footer-grid{
     display:grid; grid-template-columns:1fr; gap:32px;
@@ -279,65 +260,6 @@
     font-size:12px; opacity:.8;
   }
   .footer-bottom button{opacity:1; color:var(--white); text-decoration:underline;}
-
-  /* ---------- Intro ---------- */
-  .intro{
-    position:fixed; inset:0; z-index:300;
-    background:var(--black);
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-    overflow:hidden;
-    -webkit-tap-highlight-color:transparent;
-    transition:opacity .6s ease, visibility .6s ease;
-  }
-  .intro.is-hidden{opacity:0; visibility:hidden; pointer-events:none;}
-  .intro-bg{
-    position:absolute; inset:0; z-index:0;
-    width:100%; height:100%;
-    object-fit:cover; object-position:47% 68%;
-    opacity:0;
-    animation:introBgIn 2.5s ease forwards, introBgZoom 16s ease-out forwards;
-  }
-  .intro::after{
-    content:"";
-    position:absolute; inset:0; z-index:1;
-    background:linear-gradient(180deg, rgba(21,18,13,.72) 0%, rgba(21,18,13,.6) 45%, rgba(21,18,13,.82) 100%);
-  }
-  @keyframes introBgIn{ to{opacity:.4;} }
-  @keyframes introBgZoom{ from{transform:scale(1.1);} to{transform:scale(1);} }
-  .intro-text{
-    position:relative; z-index:2;
-    font-family:'Pretendard Variable', 'Pretendard', sans-serif;
-    font-weight:800;
-    color:var(--white);
-    font-size:clamp(34px, 8vw, 76px);
-    line-height:1.12;
-    text-align:center;
-    text-transform:uppercase;
-    padding:0 24px;
-    max-width:920px;
-    opacity:0;
-    transform:translateY(18px) scale(.97);
-    animation:introTextIn 1s cubic-bezier(.2,.7,.3,1) .15s forwards;
-  }
-  .intro-text span{color:var(--orange);}
-  .intro-hint{
-    position:absolute; z-index:2; bottom:44px; left:0; right:0;
-    text-align:center;
-    color:var(--orange);
-    font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
-    opacity:0;
-    animation:introHintIn .6s ease .9s forwards, introPulse 1.7s ease-in-out 1.6s infinite;
-  }
-  @keyframes introTextIn{ to{opacity:1; transform:translateY(0) scale(1);} }
-  @media (prefers-reduced-motion:reduce){
-    .intro-bg{animation:none; opacity:.4;}
-  }
-  @keyframes introHintIn{ to{opacity:.9;} }
-  @keyframes introPulse{ 0%,100%{opacity:.9;} 50%{opacity:.3;} }
-  @media (prefers-reduced-motion:reduce){
-    .intro-text, .intro-hint{animation:none; opacity:1; transform:none;}
-  }
 
   /* ---------- Menu Overlay ---------- */
   .menu-overlay{
@@ -506,13 +428,6 @@
 </head>
 <body>
 
-  <!-- ============ INTRO ============ -->
-  <div class="intro" id="introScreen">
-    <img class="intro-bg" src="assets/img/intro.jpg" alt="">
-    <p class="intro-text">What is your<br><span>Second Sport?</span></p>
-    <p class="intro-hint">탭하여 시작하기</p>
-  </div>
-
   <!-- ============ HEADER ============ -->
   <header class="site-header">
     <a href="#hero" class="brand">
@@ -543,22 +458,18 @@
       <h2 class="reveal reveal-d1">처음이라도<br>괜찮습니다.</h2>
       <div class="cards">
         <div class="card reveal">
-          <div class="card-text">
-            <span class="tag">Welcome Day</span>
-            <h3>처음 온 사람이 ETR을 경험하는 날</h3>
-            <p>특정 팀의 훈련일이 아닌, ETR 전체가 신규자를 맞이하는 커뮤니티 데이입니다. 기본 룰 안내와 미니게임으로 부담 없이 즐기고, 훈련 후엔 함께 점심도 먹어요.</p>
-            <span class="meta">6월–11월 · 매월 마지막 주 토요일</span>
-          </div>
-          <div class="card-photo"><img src="assets/img/welcome-day.jpg" alt="Welcome Day 훈련 사진"></div>
+          <div class="card-icon">🏃</div>
+          <span class="card-label">Welcome Day</span>
+          <h3>아직 럭비공을 잡아본 적 없다면</h3>
+          <p>이번 주 웰컴데이에서 부담 없이 시작하세요.</p>
+          <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="welcomeday">웰컴데이 신청</button>
         </div>
         <div class="card reveal reveal-d1">
-          <div class="card-text">
-            <span class="tag">Beginner Class</span>
-            <h3>터치럭비 기본기를 배우는 3개월 과정</h3>
-            <p>패스, 터치, 롤볼, 수비 등 핵심 기술과 기본 룰을 체계적으로 배우고, 5월 서울 터치 토너먼트 출전까지 연결됩니다.</p>
-            <span class="meta">3월–5월 · 정규 입문 과정</span>
-          </div>
-          <div class="card-photo"><img src="assets/img/beginner-class.jpg" alt="Beginner Class 경기 사진"></div>
+          <div class="card-icon">🎓</div>
+          <span class="card-label">Beginner Class</span>
+          <h3>3개월 제대로 배우고 싶다면</h3>
+          <p>3월 개강, 기본기부터 체계적으로 배우는 정규 과정입니다.</p>
+          <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="beginnerclass">비기너 클래스 알아보기</button>
         </div>
       </div>
     </div>
@@ -568,10 +479,11 @@
   <footer id="get-in-touch">
     <div class="footer-inner">
       <div class="footer-hero">
-        <h2 class="reveal">함께 뛸 준비,<br>되셨나요?</h2>
+        <h2 class="reveal">다음 터치는,<br>당신 차례입니다.</h2>
+        <p class="reveal">이제 필드로.</p>
         <div class="footer-actions reveal reveal-d1">
-          <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM으로 문의</a>
-          <a href="https://linktr.ee/everyones_touchrugby" target="_blank" rel="noopener" class="btn btn-light">Linktree 바로가기</a>
+          <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM문의하기</a>
+          <button class="btn btn-light" data-open="events">정규멤버 신청하기</button>
         </div>
       </div>
       <div class="footer-grid reveal">
@@ -1113,21 +1025,6 @@
 
 
 <script>
-  const introScreen = document.getElementById('introScreen');
-  document.body.style.overflow = 'hidden';
-
-  function dismissIntro(){
-    introScreen.classList.add('is-hidden');
-    document.body.classList.add('intro-done');
-    document.body.style.overflow = '';
-  }
-  function showIntro(){
-    introScreen.classList.remove('is-hidden');
-    document.body.classList.remove('intro-done');
-    document.body.style.overflow = 'hidden';
-  }
-  introScreen.addEventListener('click', dismissIntro);
-
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1207,7 +1104,6 @@
       menuOverlay.classList.remove('is-open');
       menuBtn.classList.remove('is-open');
       closeAllSubpages();
-      showIntro();
     });
   });
 
