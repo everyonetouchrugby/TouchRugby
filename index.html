@@ -463,12 +463,14 @@
   .sponsor-group h3{margin:0 0 14px;}
   .sponsor-grid{
     display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+    align-items:start;
   }
   @media(min-width:600px){.sponsor-grid{grid-template-columns:repeat(3,1fr);}}
   .sponsor-card{
     background:var(--white); border:1px solid var(--line); border-radius:12px;
     display:flex; align-items:center; justify-content:center;
-    height:92px; padding:14px;
+    height:92px; min-height:92px; max-height:92px; padding:14px;
+    align-self:start;
     transition:transform .2s ease, box-shadow .2s ease;
   }
   .sponsor-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px rgba(21,18,13,.07);}
