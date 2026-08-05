@@ -38,6 +38,7 @@
     background:var(--ivory);
     color:var(--black);
     overflow-x:hidden;
+    font-weight:400;
   }
   h1,h2,h3, .display{
     font-family:'Pretendard Variable', 'Pretendard', sans-serif;
@@ -45,6 +46,7 @@
     letter-spacing:0.01em;
     text-transform:uppercase;
   }
+  h4{font-weight:800;}
   a{color:inherit; text-decoration:none;}
   img{display:block; max-width:100%;}
   button{font-family:inherit; cursor:pointer; border:none; background:none;}
@@ -136,7 +138,7 @@
       opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
     }
     .top-nav-dropdown button{
-      color:var(--black); text-align:left; font-size:14px; font-weight:600;
+      color:var(--black); text-align:left; font-size:14px; font-weight:700;
       text-transform:none; letter-spacing:0;
       padding:10px 14px; border-radius:8px; white-space:nowrap;
     }
@@ -296,7 +298,7 @@
   @media(min-width:680px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
   .footer-grid h4{
     font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-    font-weight:700; margin-bottom:12px; opacity:.85;
+    font-weight:800; margin-bottom:12px; opacity:.85;
   }
   .footer-grid a, .footer-grid p{display:block; margin-bottom:8px; opacity:.95;}
   .footer-bottom{
@@ -354,7 +356,7 @@
     position:absolute; bottom:32px; left:0; right:0;
     text-align:center; font-size:13px; letter-spacing:.08em; color:#a89f8d;
   }
-  .menu-social a{color:var(--orange); font-weight:600;}
+  .menu-social a{color:var(--orange); font-weight:700;}
   @media (prefers-reduced-motion:reduce){
     .menu-list button, .menu-list a{transition:color .2s ease; opacity:1; transform:none;}
   }
@@ -374,7 +376,7 @@
   .subpage-inner{max-width:760px; margin:0 auto; padding:100px 24px 100px;}
   .subpage .eyebrow{color:var(--orange-deep);}
   .subpage h2{font-size:clamp(30px,7vw,48px); margin-bottom:24px; line-height:1.1;}
-  .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-weight:700;}
+  .subpage h3{font-size:20px; margin:34px 0 12px; text-transform:none; font-family:'Pretendard Variable', 'Pretendard', sans-serif; font-weight:800;}
   .subpage p, .subpage li{font-size:15px; line-height:1.8; color:#3a352c;}
   .subpage ul{padding-left:18px; margin-bottom:6px;}
 
@@ -410,6 +412,11 @@
   .staff-photo img{width:100%; height:100%; object-fit:cover;}
   .staff-card h4{font-size:15px; margin-bottom:4px;}
   .staff-card p{font-size:13px; color:#5c5648;}
+  @media(min-width:600px){
+    .staff-card{flex-direction:column; align-items:stretch; padding:0; overflow:hidden; text-align:center;}
+    .staff-photo{width:100%; height:auto; aspect-ratio:3/4; border-radius:0;}
+    .staff-body{padding:18px 16px 22px;}
+  }
 
   .apply-box{
     margin:14px 0 28px; padding:20px; border-radius:12px;
@@ -769,15 +776,15 @@
       <div class="value-grid">
         <div class="staff-card">
           <div class="staff-photo"><img src="assets/img/staff/coach-jiwoong.jpg" alt="Head Coach 김지웅"></div>
-          <div><h4>Head Coach 김지웅</h4><p>U-20 아시아 럭비 토너먼트 우승</p></div>
+          <div class="staff-body"><h4>Head Coach 김지웅</h4><p>U-20 아시아 럭비 토너먼트 우승</p></div>
         </div>
         <div class="staff-card">
           <div class="staff-photo"><img src="assets/img/staff/coach-patrick.jpg" alt="Coach Patrick"></div>
-          <div><h4>Coach Patrick</h4><p>전 미국 터치럭비 국가대표 선수</p></div>
+          <div class="staff-body"><h4>Coach Patrick</h4><p>전 미국 터치럭비 국가대표 선수</p></div>
         </div>
         <div class="staff-card">
           <div class="staff-photo"><img src="assets/img/staff/coach-junseok.jpg" alt="Coach 오준석"></div>
-          <div><h4>Coach 오준석</h4><p>엘리트 럭비 선수 출신 · 현 중학교 교사</p></div>
+          <div class="staff-body"><h4>Coach 오준석</h4><p>엘리트 럭비 선수 출신 · 현 중학교 교사</p></div>
         </div>
       </div>
     </div>
