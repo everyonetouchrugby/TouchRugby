@@ -243,11 +243,13 @@
     background:var(--white);
     border:1px solid var(--line);
     border-radius:16px;
-    padding:28px 24px;
-    display:flex; flex-direction:column; align-items:flex-start; height:100%;
+    overflow:hidden;
+    display:flex; flex-direction:column; height:100%;
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .card:hover{transform:translateY(-5px); box-shadow:0 14px 28px rgba(21,18,13,.1);}
+  .card-photo{width:100%; aspect-ratio:16/10; object-fit:cover; display:block;}
+  .card-body{padding:22px 24px 24px; display:flex; flex-direction:column; align-items:flex-start; flex:1;}
   .card-icon{color:var(--blue); margin-bottom:10px;}
   .card-icon svg{width:28px; height:28px; display:block;}
   .card-label{
@@ -265,23 +267,22 @@
     padding:0 24px 40px;
   }
   .footer-hero{
+    position:relative;
     margin:0 -24px 40px;
-    padding:56px 24px 0;
-    background:var(--ivory);
-    color:var(--black);
-    display:flex; flex-direction:column; gap:28px;
-  }
-  .footer-hero-text{padding-bottom:36px; color:var(--black);}
-  .footer-hero-text .btn-light{border:1px solid var(--line);}
-  .footer-hero-photo{
-    margin:0 -24px; min-height:280px;
+    padding:72px 24px;
+    min-height:420px;
+    display:flex; align-items:center;
     background:url("assets/img/intro.jpg") center 30%/cover no-repeat;
+    color:var(--white);
+    overflow:hidden;
   }
-  @media(min-width:680px){
-    .footer-hero{flex-direction:row; align-items:stretch; padding:0; gap:0;}
-    .footer-hero-text{flex:1; padding:64px 40px; display:flex; flex-direction:column; justify-content:center;}
-    .footer-hero-photo{flex:1; margin:0; min-height:auto;}
+  .footer-hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.4);
   }
+  .footer-hero-text{position:relative; z-index:1; color:var(--white); max-width:520px;}
+  .footer-hero-text .btn-light{border:1px solid var(--line);}
   .footer-inner{max-width:900px; margin:0 auto;}
   footer h2{font-size:clamp(26px,6vw,40px); line-height:1.2; margin-bottom:12px;}
   .footer-hero p{font-size:16px; margin-bottom:24px; opacity:.9;}
@@ -515,7 +516,7 @@
       <h1>Everyone's<br>Touch Rugby</h1>
       <div class="hero-actions">
         <a href="#join-teaser" class="btn btn-solid">참가 안내 보기</a>
-        <button class="btn btn-light" data-open="about">WHY : ETR이야기</button>
+        <button class="btn btn-light" data-open="about">ETR이야기</button>
       </div>
     </div>
   </section>
@@ -527,18 +528,22 @@
       <h2 class="reveal reveal-d1">처음이라도<br>괜찮습니다.</h2>
       <div class="cards">
         <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.89 19.38l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L5.2 7.6v4.7h2V9.9l1.8-.7-1.6 8.1-4.9-1-.4 2 7.79 1.68z"></path></svg></div>
-          <span class="card-label">Welcome Day</span>
-          <h3>아직 럭비공을 잡아본 적 없다면</h3>
-          <p>이번 주 웰컴데이에서 부담 없이 시작하세요.</p>
-          <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="welcomeday">웰컴데이 신청</button>
+          <img class="card-photo" src="assets/img/gallery/gallery-1.jpg" alt="터치럭비 경기 중 볼을 다운하는 모습">
+          <div class="card-body">
+            <span class="card-label">Welcome Day</span>
+            <h3>1일 터치럭비 체험하기</h3>
+            <p>이번 주 웰컴데이에서 부담 없이 시작하세요.</p>
+            <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="welcomeday">웰컴데이 신청</button>
+          </div>
         </div>
         <div class="card reveal reveal-d1">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5-10 5L2 8z"></path><path d="M6 10.5V16c0 1.1 2.7 3 6 3s6-1.9 6-3v-5.5"></path><path d="M22 8v6"></path></svg></div>
-          <span class="card-label">Beginner Class</span>
-          <h3>3개월 제대로 배우고 싶다면</h3>
-          <p>3월 개강, 기본기부터 체계적으로 배우는 정규 과정입니다.</p>
-          <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="beginnerclass">비기너 클래스 알아보기</button>
+          <img class="card-photo" src="assets/img/gallery/gallery-39.jpg" alt="터치럭비 정규 훈련 모습">
+          <div class="card-body">
+            <span class="card-label">Beginner Class</span>
+            <h3>3개월 제대로 배우고 싶다면</h3>
+            <p>3월 개강, 기본기부터 체계적으로 배우는 정규 과정입니다.</p>
+            <button class="btn btn-outline" style="color:var(--black); border-color:var(--black);" data-open="beginnerclass">비기너 클래스 알아보기</button>
+          </div>
         </div>
       </div>
     </div>
@@ -556,7 +561,6 @@
             <button class="btn btn-light" data-open="events">정규멤버 신청하기</button>
           </div>
         </div>
-        <div class="footer-hero-photo" role="img" aria-label="터치럭비 경기 사진"></div>
       </div>
       <div class="footer-grid reveal">
         <div>
@@ -600,9 +604,10 @@
   <!-- ============ SUBPAGE: ABOUT ============ -->
   <div class="subpage" id="page-about">
     <div class="subpage-inner">
-      <p class="eyebrow">WHY : ETR 이야기</p>
       <h2>당신의 세컨드 스포츠,<br>여기서 시작됩니다.</h2>
-      <p>2017년 어느 여름 주말, 잠원한강공원에서 공 하나로 시작된 작은 모임이 지금은 9년째 매주 이어지는 커뮤니티가 됐습니다. ETR은 국적, 성별, 연령, 운동 경력과 무관하게 누구나 함께 필드에 설 수 있는 활동을 통해, 건강한 스포츠 문화를 서울을 중심으로 넓혀가고자 합니다.</p>
+
+      <h3>WHY — 우리의 시작</h3>
+      <p>2017년 어느 여름 주말, 잠원한강공원에서 공 하나로 시작된 작은 모임이 지금까지 매주 토요일 정규 훈련으로 이어지고 있습니다. ETR은 국적, 성별, 연령, 운동 경력과 무관하게 누구나 함께 필드에 설 수 있는 활동을 통해, 건강한 스포츠 문화를 서울을 중심으로 넓혀가고자 합니다.</p>
 
       <h3>HOW — 신체적 능력보다는, 하나된 생각으로.</h3>
       <p>ETR이 이 목표를 실현하기 위해 선택한 방법은 터치럭비입니다. 태클 대신 손으로 터치해 수비하기 때문에, 승부는 신체적 우위가 아니라 판단과 위치 선정에서 갈립니다. 팀원 모두가 같은 전술과 경기의 흐름을 읽으며 움직이는 그 과정에서 자연스러운 '소통'과 '격려'는 이상적인 방법이 될 수 있습니다.</p>
@@ -610,37 +615,17 @@
       <h3>WHAT — 매주 토요일, 잠원한강공원에서.</h3>
       <p>ETR은 터치럭비라는 스포츠 종목의 보급을 위해 일일 체험이 가능한 Welcome Day, 매년 3월 개강하는 Beginner Class(3개월 정규 과정) 프로그램을 진행합니다. 서울시체육회 및 서울시럭비협회와 공동 개최·진행하는 STT(서울 터치 토너먼트)를 통해 그동안 쌓아온 경험을 마음껏 표현할 수 있습니다.</p>
 
-      <h3>커뮤니티가 커질수록, 기준이 필요합니다</h3>
-      <div class="value-grid">
-        <div class="value-box">
-          <div class="icon">🌱</div>
-          <h4>초심자</h4>
-          <p>안전하고 친절한 입문 경험이 필요합니다. 부담 없이 시작할 수 있는 환경이 핵심입니다.</p>
-        </div>
-        <div class="value-box">
-          <div class="icon">🏃</div>
-          <h4>기존 멤버</h4>
-          <p>꾸준히 훈련할 수 있는 안정적인 환경이 필요합니다. 지속적인 성장이 가능해야 합니다.</p>
-        </div>
-        <div class="value-box">
-          <div class="icon">🏆</div>
-          <h4>경쟁 지향 멤버</h4>
-          <p>더 높은 수준의 경쟁과 전술 훈련 기회가 필요합니다. 실력을 발휘할 무대가 있어야 합니다.</p>
-        </div>
-      </div>
-      <p style="margin-top:18px; font-weight:600;">핵심 원칙: 그룹을 나누는 것은 커뮤니티를 나누는 것이 아닙니다. 하나의 커뮤니티를 유지하되, 상황에 따라 훈련 방식과 팀 구성을 유연하게 운영합니다.</p>
-
       <h3>대회 팀 구성 — ETR Team / MAD Team</h3>
       <p>대회 참가 시 목적과 수준에 따라 두 갈래로 팀을 구성합니다. 평소에는 하나의 ETR Community, 대회 때만 목적에 따라 나뉩니다.</p>
       <div class="value-grid" style="grid-template-columns:1fr 1fr;">
-        <div class="value-box">
-          <h4>🟢 ETR Team</h4>
+        <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="value-box" style="display:block; color:inherit;">
+          <h4>🟢 ETR Team ↗</h4>
           <p>커뮤니티 기반의 참여와 성장, 대회 경험을 중심으로 구성됩니다. 함께 즐기고 배우는 것이 핵심 가치입니다.</p>
-        </div>
-        <div class="value-box">
-          <h4>🔴 MAD Team</h4>
+        </a>
+        <a href="https://www.instagram.com/seoulmadhoppers?igsh=c3V0Y2w5MWI5Njkw" target="_blank" rel="noopener" class="value-box" style="display:block; color:inherit;">
+          <h4>🔴 MAD Team ↗</h4>
           <p>경쟁 지향과 높은 수준의 경기력을 목표로 구성됩니다. 전술 훈련과 성과 중심의 팀입니다.</p>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -805,10 +790,87 @@
   <div class="subpage" id="page-whatis">
     <div class="subpage-inner">
       <p class="eyebrow">Information · What is Touch Rugby</p>
-      <h2>터치럭비를<br>소개합니다.</h2>
-      <p>ETR 운영 관련 자료를 투명하게 공개하는 공간입니다. 터치럭비 학습 자료와 연간 운영 일정, 회계 내역을 확인하실 수 있습니다.</p>
+      <h2>럭비에서 태클을 빼고,<br>그 자리에 터치를 넣었습니다.</h2>
+      <p>터치럭비는 럭비의 러닝·패스 구조는 그대로 가져오고, 몸싸움이 오가는 태클만 손끝 터치로 바꾼 팀 스포츠입니다. 몸이 아니라 판단과 위치 선정이 승부를 가르기 때문에, 성별과 체력 차이에 상관없이 같은 코트에서 뜁니다.</p>
 
-      <h3>터치럭비 알아보기</h3>
+      <h3>럭비와 무엇이 다른가요?</h3>
+      <p>럭비 경기의 큰 틀 — 러닝, 패스, 트라이 — 은 동일합니다. 다른 건 수비 방식 하나뿐입니다.</p>
+      <div class="value-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="value-box">
+          <div class="icon">🏉</div>
+          <h4>럭비 — 몸으로 막습니다</h4>
+          <p>상대를 붙잡아 쓰러뜨리는 태클로 공격을 저지합니다. 체격과 힘이 승부에 크게 작용합니다.</p>
+        </div>
+        <div class="value-box">
+          <div class="icon">✋</div>
+          <h4>터치럭비 — 판단으로 막습니다</h4>
+          <p>손끝으로 살짝 터치하면 수비 성공입니다. 순간적인 위치 선정과 스피드로 승부가 갈립니다.</p>
+        </div>
+      </div>
+
+      <h3>기본 규칙, 4가지면 충분합니다</h3>
+      <p>포지션이나 세부 전술은 몰라도 됩니다. 아래 네 가지만 알면 바로 코트에 설 수 있습니다.</p>
+      <div class="value-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="value-box">
+          <h4>① 터치 = 수비 성공</h4>
+          <p>수비수가 공격수 몸에 손끝으로 살짝 닿으면 그 자리에서 공격이 멈춥니다. 태클처럼 붙잡거나 넘어뜨릴 필요가 없습니다.</p>
+        </div>
+        <div class="value-box">
+          <h4>② 6번의 터치, 6번의 기회</h4>
+          <p>한 팀은 터치당하기 전까지 최대 6번의 공격 기회를 갖습니다. 6번째 터치까지 트라이하지 못하면 공격권이 상대에게 넘어갑니다.</p>
+        </div>
+        <div class="value-box">
+          <h4>③ 터치 후엔 롤볼</h4>
+          <p>터치당한 선수는 그 자리에서 공을 반드시 땅에 내려놓았다가, 발 사이로 굴려 다시 경기를 이어갑니다. 멈춤 없이 빠르게 흘러가는 이유입니다.</p>
+        </div>
+        <div class="value-box">
+          <h4>④ 공을 땅에 대면 트라이</h4>
+          <p>상대 진영 끝까지 가서 공을 직접 땅에 내려놓으면 득점입니다. 잦은 트라이 덕분에 경기가 늘어지지 않습니다.</p>
+        </div>
+      </div>
+
+      <h3>왜 "모두"의 스포츠라고 할까요</h3>
+      <p>몸싸움 대신 판단이 승부를 가르기 때문에 생기는 구조적인 차이입니다.</p>
+      <div class="value-grid">
+        <div class="value-box">
+          <div class="icon">🙋</div>
+          <h4>남녀 혼성</h4>
+          <p>한 팀 안에서 남녀가 함께 뜁니다. 힘이 아닌 판단과 위치 선정이 중심이기 때문에 가능한 구성입니다.</p>
+        </div>
+        <div class="value-box">
+          <div class="icon">🎂</div>
+          <h4>전 세대 참여</h4>
+          <p>10대부터 40·50대까지 같은 코트에서 뜁니다. 체력 수준에 맞춰 스스로 강도를 조절할 수 있는 구조입니다.</p>
+        </div>
+        <div class="value-box">
+          <div class="icon">🚪</div>
+          <h4>낮은 진입 장벽</h4>
+          <p>공 하나면 시작할 수 있고, 규칙은 10분이면 익힙니다. 처음 코트에 서는 사람도 그 경기에 바로 섞여 뜁니다.</p>
+        </div>
+      </div>
+
+      <h3>이미 전 세계가 뛰고 있습니다</h3>
+      <p>국제터치연맹(FIT)을 중심으로 아시아·오세아니아·유럽·미주에서 꾸준히 성장하고 있는 종목입니다.</p>
+      <div class="value-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="value-box">
+          <h4 style="font-size:26px; color:var(--orange); font-weight:800;">40+</h4>
+          <p>터치럭비가 활성화된 국가 수</p>
+        </div>
+        <div class="value-box">
+          <h4 style="font-size:26px; color:var(--orange); font-weight:800;">2019</h4>
+          <p>말레이시아, 터치럭비 월드컵 개최</p>
+        </div>
+        <div class="value-box">
+          <h4 style="font-size:26px; color:var(--orange); font-weight:800;">110+</h4>
+          <p>일본 내 공인 터치럭비 클럽 수</p>
+        </div>
+        <div class="value-box">
+          <h4 style="font-size:26px; color:var(--orange); font-weight:800;">2032</h4>
+          <p>브리즈번 올림픽 편입 논의 진행 중</p>
+        </div>
+      </div>
+
+      <h3>더 알아보기</h3>
       <div class="value-grid" style="grid-template-columns:1fr 1fr;">
         <a href="https://docs.craft.do/d/5b0b85a2-1572-11d7-bf72-2c7180be8ce7/9EB46D37-6958-4B5A-841C-D72EFAAB4AEC?s=XYQ8wkX5dqiFawAuoGtPYPZ1aXTednAemPv3rezGBNNw" target="_blank" rel="noopener" class="value-box" style="display:block; color:inherit;">
           <h4>터치럭비 5분 이해 ↗</h4>
@@ -1004,7 +1066,13 @@
           <p><strong>제5조 (가입 절차)</strong></p>
           <ul>
             <li>체험회원은 웰컴데이, 비기너클래스, 워크인 중 하나의 경로로 참여할 수 있다.</li>
-            <li>정회원 전환 조건은 참여 경로에 따라 다르다 — 비기너클래스: 클래스 비용 납부로 연회비를 갈음하며 별도 절차 없이 정회원 등록. 웰컴데이: 정회원 신청과 월회비 납부로 정회원 등록. 워크인: 웰컴데이와 동일한 절차.</li>
+            <li>정회원 전환 조건은 참여 경로에 따라 다르다.
+              <ul>
+                <li>비기너클래스: 클래스 비용 납부로 연회비를 갈음하며 별도 절차 없이 정회원 등록.</li>
+                <li>웰컴데이: 정회원 신청과 월회비 납부로 정회원 등록.</li>
+                <li>워크인: 웰컴데이와 동일한 절차.</li>
+              </ul>
+            </li>
             <li>정회원 가입 시 본 회칙 및 개인정보처리방침에 동의한 것으로 본다.</li>
           </ul>
           <p><strong>제6조 (회비)</strong></p>
