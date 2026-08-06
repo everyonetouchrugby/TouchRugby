@@ -225,6 +225,8 @@
   .btn-dark:hover{background:#000;}
   .btn-light{background:var(--white); color:var(--black);}
   .btn-light:hover{background:#EDE6D6;}
+  .btn-disabled{opacity:.5; cursor:not-allowed; pointer-events:none;}
+  .btn-disabled:hover{transform:none; box-shadow:none;}
 
   /* ---------- Sections ---------- */
   section{padding:88px 24px; max-width:900px; margin:0 auto;}
@@ -567,7 +569,7 @@
           <p class="reveal">이제 필드로.</p>
           <div class="footer-actions reveal reveal-d1">
             <a href="https://www.instagram.com/everyones_touchrugby?igsh=MXd1ODJoMzlxYmlvNA==" target="_blank" rel="noopener" class="btn btn-light">인스타그램 DM문의하기</a>
-            <a href="https://forms.gle/opBa8xeereVj7KZw8" target="_blank" rel="noopener" class="btn btn-light">정규멤버 신청하기</a>
+            <a href="https://forms.gle/opBa8xeereVj7KZw8" target="_blank" rel="noopener" class="btn btn-light" id="regularMemberBtn">정규멤버 신청하기</a>
           </div>
         </div>
       </div>
@@ -1189,6 +1191,20 @@
       ? '<p class="apply-status apply-open">지금 비기너 클래스 신청 기간입니다</p>'
         + `<a href="${BEGINNER_CLASS_FORM_URL}" target="_blank" rel="noopener" class="btn btn-solid">Beginner Class 신청하기</a>`
       : '<p class="apply-status apply-closed">비기너 클래스 신청기간: 12월~2월 (안내 예정)</p>';
+  }
+
+  // 정규멤버 신청 also only open Dec-Feb; disable the button outside that window.
+  const regularMemberBtn = document.getElementById('regularMemberBtn');
+  if (regularMemberBtn) {
+    const month = new Date().getMonth() + 1;
+    const isOpen = month === 12 || month <= 2;
+    if (!isOpen) {
+      regularMemberBtn.removeAttribute('href');
+      regularMemberBtn.removeAttribute('target');
+      regularMemberBtn.classList.add('btn-disabled');
+      regularMemberBtn.setAttribute('aria-disabled', 'true');
+      regularMemberBtn.textContent = '정규멤버 신청 (12월~2월 오픈)';
+    }
   }
 
   const menuBtn = document.getElementById('menuBtn');
